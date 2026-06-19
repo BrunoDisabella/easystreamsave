@@ -59,3 +59,8 @@ Validacion:
 
 Proximo:
 Revisar extension cargada manualmente en Chrome y preparar deploy de landing en Cloudflare Pages/Vercel.
+
+2026-06-19 03:11 UYT
+- Se inicializo git local independiente en el proyecto.
+- Se subio commit inicial a GitHub `BrunoDisabella/easystreamsave`, rama `main`, commit `485b625`.
+- Cloudflare Pages ya deberia poder seleccionar `main` como rama de produccion.
