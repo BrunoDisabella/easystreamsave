@@ -158,6 +158,10 @@ Tareas:
 - [ ] Articulo "Cococut alternative without ads".
 - [x] Articulo "Chrome video downloader without ads".
 - [x] Articulo "HLS and M3U8 downloader for Chrome".
+- [ ] QA Vimeo publico/embed para validar cluster `vimeo downloader chrome`.
+- [ ] Crear pagina `/vimeo-downloader-chrome/` si QA Vimeo pasa y el copy puede limitarse a videos publicos/browser-accessible.
+- [ ] Profundizar `/m3u8-downloader-chrome/` con ejemplos, capturas y FAQ tecnica.
+- [ ] Profundizar `/video-downloadhelper-alternative/` con comparativa real y no solo pagina basica.
 - [ ] Articulo "Download web videos privately".
 - [x] Crear landing en espanol: "descargar videos de paginas web".
 - [ ] Crear 3 videos tutoriales IA: Chrome web video, TikTok/web source, por que algunos videos no se pueden descargar.

@@ -134,6 +134,104 @@ Usar con cuidado:
 Motivo:
 Tienen demanda, pero el copy debe decir "works with many direct videos and supported streams" y explicar limites. Nunca prometer universalidad.
 
+## Expansion Keyword Planner - Long Tail Real
+
+Bruno marco una correccion importante: no alcanza con elegir 3 keywords. La estrategia tiene que usar Keyword Planner para encontrar clusters con demanda defendible y menos competencia real que los head terms.
+
+Conclusion nueva:
+
+- `web video downloader`, `chrome video downloader` y `video downloader extension` son keywords de autoridad. Sirven para home, Chrome Web Store y marca, pero no son el campo de batalla inicial.
+- Los clusters long-tail con mejor encaje para una extension nueva son:
+  - Vimeo/public embedded video.
+  - HLS/M3U8.
+  - Alternatives.
+  - Clean/no ads.
+  - Problemas/limites.
+- Los clusters de Facebook/TikTok/Instagram tienen volumen alto, pero mucho riesgo de expectativa falsa, copyright, contenido privado y bloqueo tecnico. No deben liderar la estrategia hasta tener QA fuerte y copy muy controlado.
+
+### Cluster Vimeo
+
+Keyword Planner confirma que Vimeo es un cluster atractivo para empezar si el producto se valida en videos publicos/embed:
+
+| Keyword | Avg/mo | Comp | Index | CPC low | CPC high | Decision |
+| --- | ---: | --- | ---: | ---: | ---: | --- |
+| `vimeo downloader extension` | 1900 | LOW | 2 | 0.26 | 1.96 | Alta prioridad si QA Vimeo publico pasa. |
+| `vimeo download plugin` | 1900 | LOW | 2 | 0.26 | 1.96 | Misma intencion; agrupar en una URL. |
+| `vimeo downloader chrome` | 1600 | LOW | 1 | n/a | n/a | Keyword primaria candidata. |
+| `vimeo chrome downloader` | 1600 | LOW | 1 | n/a | n/a | Variante para H2/copy. |
+| `vimeo video downloader chrome` | 1300 | LOW | 3 | n/a | n/a | Secundaria fuerte. |
+| `vimeo video downloader extension` | 1300 | LOW | 1 | 0.14 | 0.94 | Secundaria fuerte. |
+| `download vimeo chrome extension` | 1000 | LOW | 2 | 0.27 | 2.14 | Secundaria con buena intencion. |
+| `vimeo downloader chrome extension` | 1000 | LOW | 2 | 0.27 | 2.14 | Secundaria fuerte. |
+| `vimeo downloader extension for chrome` | 320 | LOW | 0 | n/a | n/a | Long-tail facil. |
+| `download vimeo private video chrome extension` | 110 | LOW | 3 | n/a | n/a | Excluir o tratar como limite, no prometer. |
+
+Decision:
+Crear `/vimeo-downloader-chrome/` solo despues de QA con Vimeo publico y embebido. El copy debe decir "public Vimeo videos and embeds when the media is browser-accessible"; nunca "private Vimeo downloader".
+
+### Cluster HLS/M3U8 Profundo
+
+| Keyword | Avg/mo | Comp | Index | Decision |
+| --- | ---: | --- | ---: | --- |
+| `download hls stream chrome` | 1300 | LOW | 1 | Ya publicado en `/m3u8-downloader-chrome/`; expandir contenido. |
+| `hls downloader chrome` | 1300 | LOW | 1 | Misma URL, H2 fuerte. |
+| `m3u8 downloader chrome` | 1000 | LOW | 1 | Primaria actual. |
+| `hls downloader chrome extension` | 210 | LOW | 0 | FAQ/H2. |
+| `m3u8 downloader chrome extension` | 170 | LOW | 0 | FAQ/H2. |
+| `hls stream detector chrome` | 10 | LOW | 0 | Soporte/feature wording, no pagina propia. |
+
+Decision:
+Mantener una sola pagina fuerte para HLS/M3U8. No fragmentar por cada variante porque canibaliza.
+
+### Cluster Alternatives
+
+| Keyword | Avg/mo | Comp | Index | Decision |
+| --- | ---: | --- | ---: | --- |
+| `video downloadhelper alternative` | 880 | LOW | 2 | Ya publicado; ampliar con comparativa real cuando haya screenshots/QA. |
+| `video download helper alternative` | 210 | LOW | 3 | Misma URL. |
+| `downloadhelper alternative` | 170 | LOW | 3 | Misma URL. |
+| `cococut alternative` | 90 | LOW | 1 | Candidato a pagina propia despues de reviews/competencia. |
+| `fetchv alternative` | 70 | LOW | 4 | Candidato secundario, probablemente dentro de hub. |
+
+Decision:
+`/video-downloadhelper-alternative/` fue buena primera pagina, pero necesita volverse mas profunda: tabla, capturas, casos donde Easy gana/pierde y limites honestos. Luego crear `/cococut-alternative/` si validamos diferencial real.
+
+### Cluster Clean / No Ads
+
+| Keyword | Avg/mo | Comp | Index | Decision |
+| --- | ---: | --- | ---: | --- |
+| `free video downloader chrome extension` | 5400 | LOW | 2 | Soporte para home/CWS; no prometer gratis ilimitado. |
+| `video downloader without ads` | 480 | LOW | 21 | Ya publicado; buen diferenciador. |
+| `no ads video downloader` | 40 | LOW | 21 | Misma URL. |
+
+Decision:
+Este cluster no es enorme, pero encaja perfecto con marca. Se mantiene como pagina de confianza, no como unica apuesta de trafico.
+
+### Cluster Problemas / Limites
+
+| Keyword | Avg/mo | Comp | Index | Decision |
+| --- | ---: | --- | ---: | --- |
+| `hls downloader not working` | 10 | LOW | 0 | FAQ en HLS. |
+| `video downloader not detecting video` | 10 | LOW | 0 | FAQ en pagina de limites. |
+| `why some videos cannot be downloaded` | 10 | LOW | 0 | Ya existe. |
+| `chrome video downloader not working` | 0 | n/a | 0 | Mantener como soporte, no pagina nueva. |
+
+Decision:
+Aunque el volumen sea bajo, estas paginas reducen malas reviews y ayudan a convertir usuarios frustrados. Son soporte SEO, no crecimiento principal.
+
+### Clusters Riesgosos de Plataforma
+
+| Keyword | Avg/mo | Comp | Index | Decision |
+| --- | ---: | --- | ---: | --- |
+| `facebook video downloader chrome` | 90500 | LOW | 0 | No atacar ahora. Alto riesgo de expectativa falsa y bloqueo. |
+| `instagram video downloader chrome` | 12100 | LOW | 0 | No atacar ahora. Alto riesgo de plataforma/copyright. |
+| `twitter video downloader chrome` | 2400 | LOW | 0 | No atacar ahora. |
+| `tiktok video downloader chrome` | 1300 | LOW | 0 | No atacar ahora aunque Bruno ya probo TikTok; validar politicas primero. |
+| `reddit video downloader chrome` | 320 | LOW | 0 | Posible futuro si CWS y QA lo permiten. |
+
+Decision:
+No perseguir volumen bruto. Estas keywords pueden traer installs, pero tambien soporte malo, rechazos, reviews negativas y expectativas de bajar contenido privado/protegido.
+
 ## Arquitectura SEO Recomendada
 
 ### 1. Home EN `/`
@@ -347,6 +445,76 @@ Screenshots que deben reforzar keywords:
 
 ## Priorizacion de Contenido
 
+### Estrategia por Capas
+
+### Capa 1 - Autoridad / Conversion
+
+Uso:
+Home, Chrome Web Store y marca.
+
+Keywords:
+
+- `chrome video downloader`
+- `video downloader extension`
+- `web video downloader`
+- `video downloader chrome extension`
+
+Regla:
+No intentar rankear cada head term con pagina separada. Concentrar autoridad en home + CWS.
+
+### Capa 2 - Long Tail Tecnica
+
+Uso:
+Paginas donde podemos demostrar valor real.
+
+Keywords:
+
+- `m3u8 downloader chrome`
+- `hls downloader chrome`
+- `download hls stream chrome`
+
+Estado:
+Publicado en `/m3u8-downloader-chrome/`, pero debe crecer con ejemplos, capturas y FAQ tecnica.
+
+### Capa 3 - Platform Tail Validado
+
+Uso:
+Paginas especificas de plataforma solo si QA confirma que el producto funciona en casos publicos y el copy puede ser seguro.
+
+Primer candidato:
+
+- `/vimeo-downloader-chrome/`
+
+Condiciones antes de publicar:
+
+- Probar Vimeo publico normal.
+- Probar Vimeo embed en otra pagina.
+- Confirmar preview/deteccion/descarga o explicar claramente cuando solo detecta playlist.
+- Excluir "private Vimeo downloader" como promesa.
+
+### Capa 4 - Alternatives
+
+Uso:
+Capturar usuarios que ya comparan herramientas.
+
+Estado:
+`/video-downloadhelper-alternative/` publicado. Siguiente: profundizarlo antes de crear mas alternatives.
+
+Futuros:
+
+- `/cococut-alternative/`
+- `/fetchv-alternative/` solo si hay evidencia y comparativa util.
+
+### Capa 5 - Trust / No Ads / Limits
+
+Uso:
+Mejorar conversion y reducir malas reviews.
+
+Estado:
+
+- `/chrome-video-downloader-without-ads/`
+- `/why-some-videos-cannot-be-downloaded.html`
+
 ### Sprint 1: Antes de publicar en Chrome Web Store
 
 1. Ajustar home EN para `chrome video downloader` + `video downloader extension`.
@@ -361,7 +529,14 @@ Screenshots que deben reforzar keywords:
 2. `/chrome-video-downloader-without-ads/`
 3. `/video-downloadhelper-alternative/`
 
-### Sprint 3: Despues de datos reales
+### Sprint 3: Refinamiento antes de mas paginas
+
+1. Mejorar `/m3u8-downloader-chrome/` con ejemplos y FAQ mas profunda.
+2. Mejorar `/video-downloadhelper-alternative/` con tabla comparativa real.
+3. Crear prueba QA Vimeo.
+4. Si QA pasa, crear `/vimeo-downloader-chrome/`.
+
+### Sprint 4: Despues de datos reales
 
 1. `/alternatives/`
 2. `/cococut-alternative/` si Search Console muestra impresiones o CWS reviews lo justifican.
@@ -380,6 +555,7 @@ Aplicacion:
 
 - `m3u8 downloader chrome`: 5 intencion, 5 encaje, 3 volumen, 5 competencia, 1 riesgo. Prioridad alta.
 - `chrome video downloader`: 5 intencion, 5 encaje, 5 volumen, 4 competencia, 2 riesgo. Prioridad alta, pero home/CWS.
+- `vimeo downloader chrome`: 4 intencion, 4 encaje si QA pasa, 3 volumen, 5 competencia, 3 riesgo. Prioridad alta condicionada.
 - `video downloader without ads`: 4 intencion, 5 encaje, 2 volumen, 3 competencia, 1 riesgo. Prioridad alta por marca.
 - `download any video chrome`: 5 intencion, 2 encaje, 3 volumen, 4 competencia, 5 riesgo. No crear pagina dedicada.
 - `facebook video downloader chrome`: 4 intencion, 2 encaje, 5 volumen, 5 competencia, 4 riesgo. No priorizar.
@@ -417,13 +593,15 @@ Cadencia:
 
 ## Acciones Inmediatas
 
-1. Enviar sitemap a Search Console.
+1. Listo: enviar sitemap a Search Console.
 2. Listo: actualizar home EN y `/es/` con keywords principales sin keyword stuffing.
 3. Listo: ampliar pagina de limites con FAQ/schema.
 4. Listo: crear `/m3u8-downloader-chrome/`.
 5. Listo: crear `/chrome-video-downloader-without-ads/`.
 6. Listo: ajustar `CHROME_STORE_LISTING.md` con keywords CWS definitivas.
-7. Crear propiedad GA4 si Bruno quiere medicion web.
+7. Mejorar estrategia long-tail con Keyword Planner: Vimeo, HLS, alternatives, clean/no ads y problemas.
+8. Ejecutar QA Vimeo publico antes de crear pagina `/vimeo-downloader-chrome/`.
+9. Crear propiedad GA4 si Bruno quiere medicion web.
 
 ## Fuentes
 

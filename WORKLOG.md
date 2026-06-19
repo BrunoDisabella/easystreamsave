@@ -591,3 +591,23 @@ Revisar extension cargada manualmente en Chrome y preparar deploy de landing en 
   - `/why-some-videos-cannot-be-downloaded.html`
   - `/sitemap.xml`
 - Search Console: sitemap `https://easystreamsave.com/sitemap.xml` enviado via Maton. Respuesta submit 204; listado posterior OK con `isPending=true`, warnings 0 y errors 0.
+
+# 2026-06-19 - Keyword Planner strategy expansion
+
+- Uso GPT-5.5.
+- Bruno corrigio que la estrategia SEO estaba superficial y que no alcanza con elegir 3 palabras. Tambien marco que `web video downloader` es demasiado competido y que long-tail como Vimeo puede ser mejor para una extension nueva.
+- Se corrio Keyword Planner por clusters:
+  - head market;
+  - Vimeo;
+  - HLS/M3U8;
+  - alternatives;
+  - clean/no ads;
+  - problems/limits;
+  - platform risky.
+- Hallazgo principal: el cluster Vimeo tiene demanda interesante y baja competencia:
+  - `vimeo downloader extension` 1900 avg/mo;
+  - `vimeo downloader chrome` 1600 avg/mo;
+  - `vimeo video downloader chrome` 1300 avg/mo;
+  - `download vimeo chrome extension` 1000 avg/mo.
+- Decision: `web video downloader` queda como keyword de home/CWS, no como foco inicial de pagina. Proxima oportunidad SEO real: QA Vimeo publico/embed y, si pasa, crear `/vimeo-downloader-chrome/` con limites claros.
+- Se actualizo `KEYWORD_RESEARCH_EXPERT_2026.md`, `SEO_AND_GROWTH.md` y `ROADMAP.md` con estrategia por capas, clusters ampliados y regla de no publicar platform-tail sin QA/politica.

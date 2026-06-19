@@ -58,7 +58,15 @@ Prioridad inicial:
 2. Problemas especificos de HLS/M3U8: `/m3u8-downloader-chrome/`.
 3. Privacidad y ausencia de ads: `/chrome-video-downloader-without-ads/`.
 4. Comparativas contra competidores cargados/ruidosos: `/video-downloadhelper-alternative/`.
-5. Limites honestos: DRM, protected video, why downloaders fail.
+5. Platform-tail validado: primer candidato `/vimeo-downloader-chrome/`, solo despues de QA en Vimeo publico/embed.
+6. Limites honestos: DRM, protected video, why downloaders fail.
+
+Regla de expansion:
+
+- Head terms como `web video downloader` y `chrome video downloader` viven en home/CWS, no en muchas paginas separadas.
+- Long-tail con demanda real y baja competencia puede tener pagina propia.
+- Platform-tail solo se publica si el producto funciona en casos publicos y el copy puede aclarar limites sin prometer contenido privado.
+- No se crean paginas para Facebook/TikTok/Instagram aunque tengan volumen alto hasta validar politicas, QA y riesgo de reviews.
 
 Clusters iniciales:
 
@@ -71,6 +79,12 @@ Clusters iniciales:
   - `m3u8 downloader chrome`
   - `hls downloader chrome`
   - `download hls stream chrome extension`
+
+- Vimeo/public embeds:
+  - `vimeo downloader chrome`
+  - `vimeo downloader extension`
+  - `vimeo video downloader chrome`
+  - `download vimeo chrome extension`
 
 - Competitor alternative:
   - `cococut alternative`
