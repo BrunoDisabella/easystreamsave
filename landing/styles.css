@@ -67,6 +67,26 @@ footer a {
   text-decoration: none;
 }
 
+.language-switcher {
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: inline-flex;
+  overflow: hidden;
+}
+
+.language-switcher a {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+  padding: 7px 9px;
+}
+
+.language-switcher a[aria-current="page"] {
+  background: #e7fbfa;
+  color: var(--accent-dark);
+}
+
 .hero {
   display: grid;
   gap: 48px;
@@ -412,6 +432,20 @@ h3 {
   font-weight: 800;
 }
 
+.architecture-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 28px;
+}
+
+.architecture-grid article {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 20px;
+}
+
 .comparison-section {
   margin-top: 46px;
 }
@@ -533,6 +567,7 @@ footer span {
   .band,
   .status-grid,
   .pricing-grid,
+  .architecture-grid,
   .qa-grid {
     grid-template-columns: 1fr;
   }

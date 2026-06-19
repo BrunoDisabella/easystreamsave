@@ -1,25 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://easystreamsave.com/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://easystreamsave.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://easystreamsave.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://easystreamsave.com/"/>
   </url>
   <url>
     <loc>https://easystreamsave.com/es/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://easystreamsave.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://easystreamsave.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://easystreamsave.com/"/>
   </url>
   <url>
     <loc>https://easystreamsave.com/pricing/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://easystreamsave.com/pricing/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://easystreamsave.com/es/pricing/"/>
+  </url>
+  <url>
+    <loc>https://easystreamsave.com/es/pricing/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://easystreamsave.com/pricing/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://easystreamsave.com/es/pricing/"/>
   </url>
   <url>
     <loc>https://easystreamsave.com/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://easystreamsave.com/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://easystreamsave.com/es/privacy/"/>
+  </url>
+  <url>
+    <loc>https://easystreamsave.com/es/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://easystreamsave.com/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://easystreamsave.com/es/privacy/"/>
   </url>
   <url>
     <loc>https://easystreamsave.com/terms/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://easystreamsave.com/terms/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://easystreamsave.com/es/terms/"/>
+  </url>
+  <url>
+    <loc>https://easystreamsave.com/es/terms/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://easystreamsave.com/terms/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://easystreamsave.com/es/terms/"/>
   </url>
   <url>
     <loc>https://easystreamsave.com/refund/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://easystreamsave.com/refund/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://easystreamsave.com/es/refund/"/>
+  </url>
+  <url>
+    <loc>https://easystreamsave.com/es/refund/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://easystreamsave.com/refund/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://easystreamsave.com/es/refund/"/>
   </url>
   <url>
     <loc>https://easystreamsave.com/contact/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://easystreamsave.com/contact/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://easystreamsave.com/es/contact/"/>
+  </url>
+  <url>
+    <loc>https://easystreamsave.com/es/contact/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://easystreamsave.com/contact/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://easystreamsave.com/es/contact/"/>
   </url>
   <url>
     <loc>https://easystreamsave.com/why-some-videos-cannot-be-downloaded.html</loc>
