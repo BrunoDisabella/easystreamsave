@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Easy Stream Save",
-  "description": "Detect downloadable video files and stream playlists on the current page.",
+  "description": "Detect videos and stream playlists on the current page, preview direct files, and download available media without invasive ads.",
   "version": "0.1.0",
   "action": {
     "default_popup": "popup.html",

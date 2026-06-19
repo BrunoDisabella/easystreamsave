@@ -1,9 +1,13 @@
 :root {
-  --ink: #17211f;
-  --muted: #5d6a67;
-  --line: #dbe5e2;
-  --accent: #0c8f7a;
-  --bg: #f7faf8;
+  --ink: #101918;
+  --muted: #64716e;
+  --line: #d7e1de;
+  --accent: #087f71;
+  --accent-strong: #075f52;
+  --bg: #f5f8f7;
+  --soft: #e7f4f1;
+  --warning: #fff6df;
+  --warning-line: #efd390;
 }
 
 * {
@@ -15,12 +19,12 @@ body {
   color: var(--ink);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   margin: 0;
-  width: 380px;
+  width: 430px;
 }
 
 header {
   align-items: center;
-  background: #fff;
+  background: linear-gradient(135deg, #ffffff 0%, #edf7f4 100%);
   border-bottom: 1px solid var(--line);
   display: flex;
   gap: 12px;
@@ -40,10 +44,30 @@ p {
 }
 
 main {
-  max-height: 420px;
+  max-height: 500px;
   min-height: 180px;
   overflow: auto;
   padding: 12px;
+}
+
+.notice {
+  background: var(--warning);
+  border: 1px solid var(--warning-line);
+  border-radius: 8px;
+  display: grid;
+  gap: 3px;
+  margin-bottom: 12px;
+  padding: 10px 12px;
+}
+
+.notice strong {
+  font-size: 12px;
+}
+
+.notice span {
+  color: #6c5a25;
+  font-size: 11px;
+  line-height: 1.35;
 }
 
 .media-list {
@@ -56,25 +80,53 @@ main {
   border: 1px solid var(--line);
   border-radius: 8px;
   display: grid;
-  gap: 10px;
-  grid-template-columns: auto 1fr auto;
-  padding: 12px;
+  gap: 11px;
+  grid-template-columns: 112px minmax(0, 1fr) auto;
+  min-height: 78px;
+  padding: 10px;
+}
+
+.preview {
+  align-items: center;
+  background: #17211f;
+  border-radius: 7px;
+  color: #fff;
+  display: flex;
+  font-size: 13px;
+  font-weight: 900;
+  justify-content: center;
+  min-height: 64px;
+  overflow: hidden;
+}
+
+.preview video {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.preview span {
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 6px;
+  padding: 7px 8px;
+}
+
+.details {
+  min-width: 0;
 }
 
 .type {
-  align-self: start;
-  background: var(--ink);
-  border-radius: 6px;
-  color: #fff;
+  color: var(--accent-strong);
+  display: inline-block;
   font-size: 11px;
   font-weight: 900;
-  padding: 7px;
+  margin-bottom: 4px;
 }
 
 .name,
 .host {
   display: block;
-  max-width: 210px;
+  max-width: 180px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -105,6 +157,7 @@ button {
   background: var(--accent);
   border-color: var(--accent);
   color: #fff;
+  align-self: center;
 }
 
 .empty {

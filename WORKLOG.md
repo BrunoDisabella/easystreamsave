@@ -64,3 +64,39 @@ Revisar extension cargada manualmente en Chrome y preparar deploy de landing en 
 - Se inicializo git local independiente en el proyecto.
 - Se subio commit inicial a GitHub `BrunoDisabella/easystreamsave`, rama `main`, commit `485b625`.
 - Cloudflare Pages ya deberia poder seleccionar `main` como rama de produccion.
+
+2026-06-19 03:22 UYT
+- Cloudflare Pages quedo desplegado en `https://easystreamsave.pages.dev`.
+- Dominio root `https://easystreamsave.com` respondio OK con la landing.
+- `https://www.easystreamsave.com` no quedo resuelto: seguia apuntando a Hostinger (`2.57.91.93`) en vez de Cloudflare Pages.
+- Accion pendiente para retomar:
+  - En Cloudflare DNS, reemplazar/eliminar registro viejo de `www` y dejar CNAME `www -> easystreamsave.pages.dev` con proxy activado.
+  - Revisar/verificar email ICANN del dominio en Hostinger si aparece alerta de suspension.
+- Bruno pidio pausar este punto y dejarlo pendiente en roadmap para seguir con otra cosa.
+
+2026-06-19 03:24 UYT
+- Se avanzo el siguiente punto desbloqueado: preparacion de pruebas locales de la extension.
+- Se agrego deteccion por `Content-Type` en `extension/service-worker.js` para medios sin extension visible en la URL.
+- Se creo `MANUAL_TEST_PLAN.md` con matriz de pruebas, fuentes seguras, criterios de aceptacion y formato de bug log.
+- Se actualizo `README.md` para apuntar al plan de QA.
+- Se actualizo `ROADMAP.md` marcando como listo el plan de QA y la deteccion por headers.
+
+2026-06-19 03:27 UYT
+- Se empaqueto la extension como `easy-stream-save-extension-0.1.0.zip`.
+- Se valido que el ZIP tenga `manifest.json` en la raiz.
+- Se envio el ZIP a Bruno por Telegram como documento para prueba manual en Chrome.
+
+2026-06-19 03:38 UYT
+- Bruno confirmo prueba real OK: la extension descargo un video de TikTok.
+- Se tomo como referencia competitiva el popup con preview de video.
+- Se mejoro el MVP:
+  - Popup con preview visual para archivos directos MP4/WebM/MOV/M4V.
+  - Fallback visual para streams HLS/MPD y audio.
+  - Tamano visible cuando el servidor envia `Content-Length`.
+  - Aviso claro sobre limite YouTube/DRM.
+  - Description de extension mas orientada a produccion.
+  - Landing actualizada a posicionamiento production MVP con foco en preview, privacidad y limites honestos.
+  - Logo/favicons/iconos de extension reemplazados por marca propia play + download.
+- Validacion:
+  - `node --check extension/service-worker.js`: OK.
+  - `node --check extension/popup.js`: OK.

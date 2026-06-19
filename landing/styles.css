@@ -194,6 +194,28 @@ h1 {
   padding: 8px;
 }
 
+.thumb-video {
+  background:
+    linear-gradient(135deg, rgba(8, 127, 113, 0.9), rgba(16, 25, 24, 0.72)),
+    linear-gradient(45deg, #d9e8e4 25%, transparent 25% 75%, #d9e8e4 75%);
+  border-radius: 7px;
+  display: block;
+  height: 44px;
+  overflow: hidden;
+  position: relative;
+  width: 70px;
+}
+
+.thumb-video::after {
+  border-bottom: 10px solid transparent;
+  border-left: 16px solid #ffffff;
+  border-top: 10px solid transparent;
+  content: "";
+  left: 29px;
+  position: absolute;
+  top: 12px;
+}
+
 .media-row div {
   flex: 1;
   min-width: 0;

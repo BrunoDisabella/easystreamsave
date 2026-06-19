@@ -45,12 +45,18 @@ En cada ejecucion:
 
 ## Prioridad Actual
 
-1. Crear scaffold local del proyecto.
-2. Crear landing base en ingles.
-3. Crear extension MV3 MVP.
-4. Crear paginas SEO/legal minimas.
-5. Preparar deploy landing.
-6. Crear backlog de experimentos SEO y captacion.
+1. No insistir con dominio/Cloudflare hasta que Bruno retome ese punto.
+2. Probar el MVP con preview en Chrome en sitios no DRM.
+3. Anotar casos donde la descarga funciona pero el preview no carga por CORS/headers.
+4. Preparar screenshots y descripcion larga para Chrome Web Store.
+5. Crear backlog de experimentos SEO y captacion.
+6. Avanzar contenidos SEO/landing que no requieran cambios DNS.
+
+## Pendiente Pausado por Bruno
+
+- `https://easystreamsave.com` ya abre la landing.
+- `https://www.easystreamsave.com` queda pendiente: debe apuntar por CNAME a `easystreamsave.pages.dev`, no a Hostinger.
+- Revisar verificacion ICANN/email en Hostinger cuando se retome.
 
 ## Criterio de Bloqueo
 

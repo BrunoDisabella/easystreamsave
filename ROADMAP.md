@@ -33,7 +33,7 @@ Tareas:
 
 ## Fase 1 - Landing y Legal Minimo
 
-Estado: pendiente.
+Estado: produccion MVP desplegable, con `www` pendiente.
 
 Objetivo:
 Tener `easystreamsave.com` listo para validar marca, SEO inicial y futuras politicas de Chrome Web Store.
@@ -46,13 +46,17 @@ Tareas:
 - [x] Pagina "Why some videos cannot be downloaded".
 - [x] Sitemap.
 - [x] Robots.txt.
-- [ ] Deploy en Cloudflare Pages o Vercel.
-- [ ] Conectar dominio root y `www`.
+- [x] Deploy en Cloudflare Pages.
+- [x] Conectar dominio root `easystreamsave.com`.
+- [x] Mejorar landing a MVP de produccion con foco en preview, privacidad, limites reales y marca consistente.
+- [x] Actualizar logo/favicons.
+- [ ] Resolver `www.easystreamsave.com`: reemplazar registro viejo de Hostinger por CNAME a `easystreamsave.pages.dev`.
+- [ ] Completar/verificar estado ICANN/email del dominio en Hostinger para evitar suspension futura.
 - [ ] Preparar verificacion Search Console.
 
 ## Fase 2 - Extension MVP Local
 
-Estado: pendiente.
+Estado: MVP local funcional, pendiente QA amplio.
 
 Objetivo:
 Tener una extension MV3 instalada manualmente que detecte medios reales en paginas no DRM.
@@ -69,6 +73,12 @@ Tareas:
 - [x] Descarga directa con `chrome.downloads`.
 - [x] Boton limpiar lista.
 - [x] Manejo basico de duplicados.
+- [x] Deteccion por `Content-Type` para medios sin extension visible.
+- [x] Preview visual para archivos directos MP4/WebM/MOV/M4V cuando Chrome permite cargar metadata.
+- [x] Mostrar tamano cuando el servidor informa `Content-Length`.
+- [x] Branding/icono de extension actualizado.
+- [x] Mensaje claro sobre limite YouTube/DRM en popup.
+- [x] Plan de QA manual para Chrome.
 - [ ] Tests manuales en 10-20 sitios no DRM.
 
 ## Fase 3 - Publicacion Chrome Web Store
@@ -147,4 +157,13 @@ Tareas:
 
 ## Proxima Tarea Recomendada
 
-Scaffold local creado. Proxima tarea: revisar extension cargada manualmente en Chrome y preparar deploy de landing en Cloudflare Pages/Vercel.
+Pausado por Bruno: no seguir ahora con dominio/Cloudflare.
+
+Estado a retomar:
+
+- `https://easystreamsave.com` abre la landing en Cloudflare Pages.
+- `https://www.easystreamsave.com` seguia apuntando a Hostinger (`2.57.91.93`) por registro DNS viejo.
+- Pendiente en Cloudflare DNS: dejar `www` como CNAME hacia `easystreamsave.pages.dev`, proxy activado.
+- Pendiente en Hostinger: verificar email ICANN/registrante si aparece alerta de suspension.
+
+Mientras eso queda pausado, la proxima tarea interna recomendada es probar el nuevo MVP con preview en Chrome, anotar sitios donde el preview no cargue por CORS/headers y preparar screenshots para Chrome Web Store.

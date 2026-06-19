@@ -2,6 +2,13 @@
 
 Clean Chrome extension and SEO landing for detecting downloadable web video resources.
 
+Production MVP direction:
+
+- Detect direct media files and stream playlists in the current Chrome tab.
+- Show a visual preview for direct video files when Chrome can load metadata.
+- Keep the product honest: no YouTube download support, no DRM bypass claims, no invasive ads.
+- Use consistent Easy Stream Save branding across extension icons, favicon, and landing.
+
 ## Structure
 
 - `landing/`: static marketing/legal site for `easystreamsave.com`.
@@ -10,6 +17,7 @@ Clean Chrome extension and SEO landing for detecting downloadable web video reso
 - `ROADMAP.md`: execution roadmap and KPIs.
 - `WORKLOG.md`: chronological project log.
 - `AGENT_BRIEF.md`: autonomous agent instructions.
+- `MANUAL_TEST_PLAN.md`: local Chrome QA checklist for the extension MVP.
 
 ## Local Preview
 
@@ -30,3 +38,4 @@ Extension:
 4. Click Load unpacked.
 5. Select the `extension/` folder.
 
+Then follow `MANUAL_TEST_PLAN.md`.
