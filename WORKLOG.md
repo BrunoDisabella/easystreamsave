@@ -520,3 +520,18 @@ Revisar extension cargada manualmente en Chrome y preparar deploy de landing en 
 - Se corrigieron docs desfasados que todavia mencionaban el boton `Open/Abrir`, eliminado en versiones nuevas.
 - Se actualizo `CHROME_STORE_LISTING.md`, `MANUAL_TEST_PLAN.md`, `SCREENSHOT_PLAN.md`, `README.md`, `BUSINESS_PLAN.md` y `ROADMAP.md`.
 - Fuente oficial revisada: Chrome Web Store Developer Program Policies y FAQ de privacidad/limited use.
+
+# 2026-06-19 - Maton Google status y keyword research inicial
+
+- Uso GPT-5.5.
+- Bruno pidio revisar Maton para conectar Search Console, Google Ads y Analytics, y empezar keyword research.
+- Resultado Maton:
+  - `google-search-console` disponible, pero `easystreamsave.com` no esta verificado como `https://easystreamsave.com/` ni como `sc-domain:easystreamsave.com`.
+  - `google-analytics-admin` disponible, pero `accountSummaries` devuelve `{}`: no hay GA4 visible para la cuenta conectada.
+  - `google-ads` disponible, pero API actual devuelve `NOT_ADS_USER`: la cuenta OAuth conectada no esta asociada a una cuenta Google Ads.
+- Se actualizo `KEYWORD_RESEARCH.md` con:
+  - estado real de Maton/Google;
+  - pasos pendientes para Search Console, GA4 y Ads;
+  - keyword research inicial sin volumen;
+  - seeds para Google Ads API/Keyword Planner cuando haya cuenta Ads conectada.
+- Marta/OpenClaw lab: se verifico que el lab tiene `OPENAI_API_KEY` seteada en `.env`; no esta igual que Marcela si el objetivo es usar OAuth compartido. No se cambio auth sin confirmacion.
