@@ -131,6 +131,7 @@ Tareas:
 - [ ] Capturar screenshots reales.
 - [x] Preparar ficha Chrome Web Store en ingles y espanol.
 - [x] Preparar keywords/copy de Chrome Web Store desde `KEYWORD_RESEARCH.md`.
+- [x] Preparar paquete de submission con permisos, privacidad, QA y bloqueos externos.
 - [ ] Completar privacy questionnaire.
 - [ ] Subir extension.
 - [ ] Responder revisiones si Chrome pide cambios.

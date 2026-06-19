@@ -22,6 +22,7 @@ Production MVP direction:
 - `AGENT_BRIEF.md`: autonomous agent instructions.
 - `MANUAL_TEST_PLAN.md`: local Chrome QA checklist for the extension MVP.
 - `CHROME_STORE_LISTING.md`: draft Chrome Web Store listing copy, privacy notes, keywords, and screenshot checklist.
+- `CWS_SUBMISSION_PACKAGE.md`: one-file Chrome Web Store submission pack with permission justifications and privacy questionnaire draft.
 - `SCREENSHOT_PLAN.md`: exact Chrome Web Store screenshot plan, safe sources, and capture criteria.
 - `COMPETITOR_RESEARCH.md`: competitor UX/features research.
 - `MONETIZATION_AND_PAYMENTS.md`: Free/Pro limits and payment platform decision.

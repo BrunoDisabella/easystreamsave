@@ -503,3 +503,20 @@ Revisar extension cargada manualmente en Chrome y preparar deploy de landing en 
 - Regenerados iconos PNG de Chrome y favicon de landing.
 - Confirmadas rutas locales de landing: `/`, `/es/` y `/pricing/`.
 - Version extension: `0.1.14`.
+
+# 2026-06-19 - Chrome Web Store submission pack
+
+- Uso GPT-5.5.
+- Bruno pidio seguir con la recomendacion de preparar publicacion Chrome Web Store.
+- Se creo `CWS_SUBMISSION_PACKAGE.md` con:
+  - version actual candidata `0.1.15`;
+  - posicionamiento seguro;
+  - campos de ficha;
+  - justificacion de permisos;
+  - borrador de privacy questionnaire;
+  - set minimo de screenshots;
+  - checklist pre-upload;
+  - bloqueos externos.
+- Se corrigieron docs desfasados que todavia mencionaban el boton `Open/Abrir`, eliminado en versiones nuevas.
+- Se actualizo `CHROME_STORE_LISTING.md`, `MANUAL_TEST_PLAN.md`, `SCREENSHOT_PLAN.md`, `README.md`, `BUSINESS_PLAN.md` y `ROADMAP.md`.
+- Fuente oficial revisada: Chrome Web Store Developer Program Policies y FAQ de privacidad/limited use.

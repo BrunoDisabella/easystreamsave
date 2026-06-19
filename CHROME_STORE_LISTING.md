@@ -2,7 +2,7 @@
 
 Last updated: 2026-06-19
 
-Status: draft for MVP submission. Do not publish until manual QA and screenshots are complete.
+Status: draft for MVP submission. Do not publish until manual QA, screenshots, and Developer Dashboard privacy answers are complete.
 
 ## Positioning
 
@@ -33,9 +33,9 @@ What it can help with:
 - Detect direct MP4, WebM, MOV, and M4V video files.
 - Detect HLS/M3U8 and DASH/MPD stream playlists.
 - Show previews or page thumbnails when available.
-- Open the detected source URL for troubleshooting.
 - Keep detected media separated by browser tab.
 - Clear the current tab's detected list at any time.
+- Keep downloads user-initiated through Chrome's native download flow.
 
 Important limitations:
 
@@ -65,9 +65,9 @@ Puede ayudarte a:
 - Detectar videos directos MP4, WebM, MOV y M4V.
 - Detectar playlists HLS/M3U8 y DASH/MPD.
 - Mostrar previews o miniaturas cuando estan disponibles.
-- Abrir la URL fuente detectada para diagnostico.
 - Separar los medios detectados por pestana.
 - Limpiar la lista detectada de la pestana actual.
+- Mantener las descargas iniciadas por el usuario con el flujo nativo de Chrome.
 
 Limitaciones importantes:
 
@@ -127,7 +127,7 @@ Likely permission explanations:
 
 - `downloads`: starts downloads through Chrome when the user clicks Download.
 - `storage`: stores detected media per tab, language choice, format choice, and local Free usage counter.
-- `tabs`: identifies the active tab and opens detected source URLs when the user clicks Open.
+- `tabs`: identifies the active tab so the popup can show only media detected for the current tab.
 - `webRequest`: detects media resources requested by the current page.
 - `<all_urls>` host access: needed because media resources can be served from the visited site or a third-party CDN.
 
@@ -138,6 +138,8 @@ Data handling draft:
 - No invasive ads.
 - No collection of browsing history for external analytics in the MVP.
 - Media detection state is used locally to populate the popup.
+- No transfer of detected URLs, page metadata, or usage counters to an external server in the MVP.
+- Future paid licensing should transfer only the minimum billing/license status required to unlock Pro features.
 
 ## Pre-Submission QA
 
@@ -147,3 +149,4 @@ Data handling draft:
 - Complete at least 10 manual non-DRM test cases from `MANUAL_TEST_PLAN.md`.
 - Confirm screenshots match the current UI.
 - Confirm privacy policy describes the shipped permissions honestly.
+- Confirm Developer Dashboard wording matches `CWS_SUBMISSION_PACKAGE.md`.

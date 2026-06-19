@@ -33,14 +33,13 @@ python3 -m http.server 4173
 | --- | --- | --- | --- |
 | Direct MP4 | Public `.mp4` sample file | Badge increments and popup shows MP4 item | Save button opens Chrome download |
 | Direct WebM | Public `.webm` sample file | Badge increments and popup shows WEBM item | Save button opens Chrome download |
-| Controlled QA page | `http://127.0.0.1:4173/qa/` | MP4/WebM cards trigger safe public demo media | Preview, Open, Download, format selector, and non-video validation can be tested repeatably |
+| Controlled QA page | `http://127.0.0.1:4173/qa/` | MP4/WebM cards trigger safe public demo media | Preview, Download, format selector, and non-video validation can be tested repeatably |
 | HLS playlist | Public `.m3u8` sample playlist | Badge increments and popup shows M3U8 item | Item is detected; MP4 download is blocked with clear stream message unless Original/M3U8 is selected |
 | Format honesty | Direct WebM while MP4 is selected | Download keeps the real media extension | No fake `.mp4` filename is created when the source is WebM/MOV/HLS |
 | DASH manifest | Public `.mpd` sample manifest | Badge increments and popup shows MPD item | Item is detected; no merge promised |
 | Content-Type detection | Media URL without visible extension | Badge increments from response headers | Item type can show MEDIA but URL is listed |
 | Duplicate handling | Reload same video twice | No duplicate rows for same URL | Row count stays stable |
 | Clear action | Click Clear | Badge disappears and popup empties | State cleared for current tab |
-| Open source action | Click Open on a detected item | Source URL opens in a background tab | Helps diagnose preview/download failures without changing the page |
 | Tab isolation | Open two video pages in two tabs | Each tab has its own detected list | Popup matches active tab |
 | No media page | Open normal article/page | Empty state shown | No false-positive flood |
 
@@ -74,7 +73,6 @@ When a source produces a good Chrome Web Store screenshot candidate, log it with
 - Clear button resets the current tab.
 - Download button works for direct files.
 - Download filenames match the actual detected media type; the format selector must not imply conversion that does not exist yet.
-- Open button opens the detected source URL for diagnostics.
 - Tiny `.mp4` fragments/placeholders under 1 MB are hidden or rejected instead of being offered as full videos.
 - TikTok-like pages that deliver video through `fetch/xhr` are detected when response headers expose `video/*`.
 - Preview should use the page poster or Open Graph image when the direct video frame cannot be rendered in the popup.

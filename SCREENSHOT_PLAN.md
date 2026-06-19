@@ -27,7 +27,7 @@ Capture at 1280x800 first. Downscale only if needed.
 | ID | Screenshot | Source | Expected UI | Store Purpose | Status |
 | --- | --- | --- | --- | --- | --- |
 | CWS-01 | Popup on clean page | `https://easystreamsave.com/` | Empty state or no media state | Shows clean UI and brand | Pending |
-| CWS-02 | Direct MP4 detected | `http://127.0.0.1:4173/qa/` MP4 card | MP4 row, preview visible, Download/Open buttons | Shows core value | Ready for manual capture |
+| CWS-02 | Direct MP4 detected | `http://127.0.0.1:4173/qa/` MP4 card | MP4 row, preview visible, Download button | Shows core value | Ready for manual capture |
 | CWS-03 | Multiple resources detected | `http://127.0.0.1:4173/qa/` MP4 + WebM cards | Several rows with type labels | Shows detection list | Ready for manual capture |
 | CWS-04 | HLS/M3U8 playlist detected | `http://127.0.0.1:4173/qa/` HLS card | M3U8 row with honest stream limitation | Shows stream detection without overpromising | Ready for manual capture |
 | CWS-05 | Format selector and Free limit | `http://127.0.0.1:4173/qa/` detected media | Format selector visible, Free copy visible | Shows monetization is transparent | Ready for manual capture |
@@ -63,7 +63,7 @@ After each screenshot:
 
 - Save filename as `cws-XX-short-name.png`.
 - Add the exact source URL and result to `MANUAL_TEST_PLAN.md`.
-- If preview fails but Open works, classify it as preview blocked/headers/CORS instead of a product promise failure.
+- If preview or download fails on a public source, classify the reason as preview blocked, headers/CORS, signed URL, stream limitation, or product bug before using it in a screenshot.
 
 ## Acceptance Criteria
 
