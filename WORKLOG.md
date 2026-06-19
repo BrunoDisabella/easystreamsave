@@ -495,3 +495,11 @@ Revisar extension cargada manualmente en Chrome y preparar deploy de landing en 
 - Dedupe: si varias fuentes de Facebook/TikTok comparten misma miniatura y host, se fusionan para reducir tarjetas repetidas del mismo video.
 - Version extension: `0.1.13`.
 - Validacion: `node --check` y JSON manifest OK.
+
+# 2026-06-19 - 0.1.14 logo simple y deploy web
+
+- Bruno pidio eliminar el centro negro y la pata/flecha extra del logo.
+- Logo simplificado: play aqua/azul con centro blanco, sin centro negro y sin flecha de descarga superpuesta.
+- Regenerados iconos PNG de Chrome y favicon de landing.
+- Confirmadas rutas locales de landing: `/`, `/es/` y `/pricing/`.
+- Version extension: `0.1.14`.

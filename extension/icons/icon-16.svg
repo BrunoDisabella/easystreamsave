@@ -6,15 +6,10 @@
       <stop offset="0.48" stop-color="#1dc8d7"/>
       <stop offset="1" stop-color="#1593e6"/>
     </linearGradient>
-    <linearGradient id="arrow" x1="514" y1="540" x2="708" y2="850" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#4be6d0"/>
-      <stop offset="1" stop-color="#118be6"/>
-    </linearGradient>
     <filter id="shadow" x="-18%" y="-18%" width="136%" height="136%">
       <feDropShadow dx="0" dy="28" stdDeviation="34" flood-color="#042936" flood-opacity="0.28"/>
     </filter>
   </defs>
-  <path filter="url(#shadow)" fill="url(#mark)" d="M230 236c0-84 91-137 164-95l391 226c73 42 73 148 0 190L394 783c-73 42-164-11-164-95V236Zm116 51v350c0 28 31 46 55 32l303-175c24-14 24-50 0-64L401 255c-24-14-55 4-55 32Z"/>
-  <path fill="#172124" fill-opacity=".94" d="M420 354c0-36 39-59 70-41l169 98c31 18 31 63 0 81L490 590c-31 18-70-5-70-41V354Z"/>
-  <path fill="url(#arrow)" d="M570 572c0-22 18-40 40-40h37c22 0 40 18 40 40v83h52c34 0 51 41 27 65L657 829c-16 16-41 16-57 0L491 720c-24-24-7-65 27-65h52v-83Z"/>
+  <path filter="url(#shadow)" fill="url(#mark)" d="M266 238c0-82 89-134 160-93l376 217c71 41 71 144 0 185L426 764c-71 41-160-10-160-93V238Z"/>
+  <path fill="#ffffff" fill-opacity=".92" d="M386 343c0-34 37-56 67-39l202 117c30 17 30 60 0 77L453 615c-30 17-67-4-67-39V343Z"/>
 </svg>
