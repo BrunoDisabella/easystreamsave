@@ -7,6 +7,9 @@ Objetivo principal: monetizar una extension Chrome limpia para descarga/deteccio
 
 - Todo avance importante debe actualizar `BUSINESS_PLAN.md`.
 - Toda sesion de trabajo debe agregar entrada en `WORKLOG.md`.
+- Monetizacion y pagos viven en `MONETIZATION_AND_PAYMENTS.md`.
+- Investigacion de competencia vive en `COMPETITOR_RESEARCH.md`.
+- Trafico, contenido y multilenguaje viven en `TRAFFIC_AND_CONTENT.md`.
 - El agente autonomo debe leer `AGENT_BRIEF.md`, `ROADMAP.md`, `WORKLOG.md` y `BUSINESS_PLAN.md` antes de trabajar.
 - El roadmap debe evolucionar con objetivos medibles, KPIs, SEO, captacion, branding, procesos y monetizacion.
 - Cada iniciativa importante debe tener criterio de exito, ventana minima de medicion y decision posterior.
@@ -50,6 +53,8 @@ Tareas:
 - [x] Conectar dominio root `easystreamsave.com`.
 - [x] Mejorar landing a MVP de produccion con foco en preview, privacidad, limites reales y marca consistente.
 - [x] Actualizar logo/favicons.
+- [ ] Crear landing `/es/`.
+- [ ] Agregar `hreflang` ingles/espanol cuando `/es/` exista.
 - [ ] Resolver `www.easystreamsave.com`: reemplazar registro viejo de Hostinger por CNAME a `easystreamsave.pages.dev`.
 - [ ] Completar/verificar estado ICANN/email del dominio en Hostinger para evitar suspension futura.
 - [ ] Preparar verificacion Search Console.
@@ -75,11 +80,14 @@ Tareas:
 - [x] Manejo basico de duplicados.
 - [x] Deteccion por `Content-Type` para medios sin extension visible.
 - [x] Preview visual para archivos directos MP4/WebM/MOV/M4V cuando Chrome permite cargar metadata.
+- [x] Corregir preview para videos detectados por `Content-Type` aunque la URL no tenga extension visible.
 - [x] Mostrar tamano cuando el servidor informa `Content-Length`.
 - [x] Branding/icono de extension actualizado.
+- [x] Cambiar iconos de extension a PNG para toolbar/chrome://extensions.
 - [x] Mensaje claro sobre limite YouTube/DRM en popup.
 - [x] Plan de QA manual para Chrome.
 - [ ] Tests manuales en 10-20 sitios no DRM.
+- [ ] Agregar boton "Open source URL" o "Preview in new tab" para diagnostico.
 
 ## Fase 3 - Publicacion Chrome Web Store
 
@@ -112,6 +120,9 @@ Tareas:
 - [ ] Articulo "Chrome video downloader without ads".
 - [ ] Articulo "HLS and M3U8 downloader for Chrome".
 - [ ] Articulo "Download web videos privately".
+- [ ] Crear landing en espanol: "descargar videos de paginas web".
+- [ ] Crear 3 videos tutoriales IA: Chrome web video, TikTok/web source, por que algunos videos no se pueden descargar.
+- [ ] Investigar reviews de Chrome Web Store para detectar que valoran/odian los usuarios.
 - [ ] Medir impresiones/clicks.
 - [ ] Ajustar copy de Chrome Store con queries reales.
 
@@ -135,6 +146,10 @@ Tareas:
 
 - [ ] Definir feature gates Pro.
 - [x] Validar pricing inicial con competencia.
+- [x] Definir hipotesis MVP: Free limitado + Pro Starter USD 1.99/mes.
+- [ ] Validar Paddle vs Stripe como plataforma de pago optima.
+- [ ] Implementar limite Free: 5 descargas/dia o 25/semana, sin bloquear preview/deteccion.
+- [ ] Implementar pantalla Pro local al alcanzar limite.
 - [ ] Implementar licencia simple.
 - [ ] Early adopter lifetime USD 19.
 - [ ] Precio normal lifetime USD 29-39.
@@ -154,6 +169,7 @@ Tareas:
 - [ ] Crear backlog priorizado por impacto/esfuerzo.
 - [ ] Crear tablero de metricas inicial.
 - [ ] Definir eventos de activacion sin tracking invasivo.
+- [ ] Crear rutina quincenal de investigacion de reviews/competencia.
 
 ## Proxima Tarea Recomendada
 

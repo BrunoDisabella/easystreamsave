@@ -3,6 +3,7 @@ const emptyState = document.getElementById("emptyState");
 const summary = document.getElementById("summary");
 const refreshButton = document.getElementById("refreshButton");
 const clearButton = document.getElementById("clearButton");
+const proNotice = document.getElementById("proNotice");
 
 refreshButton.addEventListener("click", loadMedia);
 clearButton.addEventListener("click", () => {
@@ -49,7 +50,16 @@ function render(media) {
     button.type = "button";
     button.textContent = "Download";
     button.addEventListener("click", () => {
-      chrome.runtime.sendMessage({ type: "download-media", url: item.url });
+      chrome.runtime.sendMessage({ type: "download-media", url: item.url }, response => {
+        if (response?.reason === "free-limit") {
+          showProNotice();
+          return;
+        }
+
+        if (typeof response?.remaining === "number") {
+          summary.textContent = `${response.remaining} free downloads left today`;
+        }
+      });
     });
 
     details.append(type, name, meta);
@@ -58,16 +68,35 @@ function render(media) {
   }
 }
 
+function showProNotice() {
+  proNotice.style.display = "grid";
+  summary.textContent = "Free download limit reached";
+}
+
 function createPreview(item) {
   const preview = document.createElement("div");
   preview.className = "preview";
 
-  if (item.category === "video" && isDirectPreviewType(item.type)) {
+  if (item.category === "video" && isPreviewableVideo(item)) {
     const video = document.createElement("video");
     video.src = item.url;
     video.muted = true;
-    video.preload = "metadata";
+    video.preload = "auto";
     video.playsInline = true;
+    video.controls = false;
+    video.addEventListener("loadeddata", () => {
+      try {
+        video.currentTime = Math.min(0.1, video.duration || 0);
+      } catch {
+        // Some CDNs expose metadata but reject seeking. Keeping the first frame is enough.
+      }
+    });
+    video.addEventListener("error", () => {
+      preview.textContent = "";
+      const icon = document.createElement("span");
+      icon.textContent = item.type || "VID";
+      preview.append(icon);
+    });
     preview.append(video);
     return preview;
   }
@@ -78,8 +107,11 @@ function createPreview(item) {
   return preview;
 }
 
-function isDirectPreviewType(type) {
-  return ["MP4", "WEBM", "MOV", "M4V"].includes(String(type || "").toUpperCase());
+function isPreviewableVideo(item) {
+  const type = String(item.type || "").toUpperCase();
+  const contentType = String(item.contentType || "").toLowerCase();
+  return ["MP4", "WEBM", "MOV", "M4V", "VIDEO"].includes(type)
+    || contentType.startsWith("video/");
 }
 
 function formatSize(bytes) {

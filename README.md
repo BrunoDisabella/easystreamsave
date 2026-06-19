@@ -18,6 +18,9 @@ Production MVP direction:
 - `WORKLOG.md`: chronological project log.
 - `AGENT_BRIEF.md`: autonomous agent instructions.
 - `MANUAL_TEST_PLAN.md`: local Chrome QA checklist for the extension MVP.
+- `COMPETITOR_RESEARCH.md`: competitor UX/features research.
+- `MONETIZATION_AND_PAYMENTS.md`: Free/Pro limits and payment platform decision.
+- `TRAFFIC_AND_CONTENT.md`: SEO, AI tutorial, multilingual, and traffic plan.
 
 ## Local Preview
 

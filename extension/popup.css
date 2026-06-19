@@ -70,6 +70,27 @@ main {
   line-height: 1.35;
 }
 
+.pro-notice {
+  background: var(--soft);
+  border: 1px solid #9acfc4;
+  border-radius: 8px;
+  display: none;
+  gap: 3px;
+  margin-bottom: 12px;
+  padding: 10px 12px;
+}
+
+.pro-notice strong {
+  color: var(--accent-strong);
+  font-size: 12px;
+}
+
+.pro-notice span {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.35;
+}
+
 .media-list {
   display: grid;
   gap: 10px;

@@ -100,3 +100,20 @@ Revisar extension cargada manualmente en Chrome y preparar deploy de landing en 
 - Validacion:
   - `node --check extension/service-worker.js`: OK.
   - `node --check extension/popup.js`: OK.
+
+2026-06-19 03:51 UYT
+- Bruno pidio orientar monetizacion a suscripcion barata USD 1.99/mes, Free limitado, investigar competencia, trafico no solo SEO, videos tutoriales IA, multilenguaje ingles/espanol y programa para entender que valoran los usuarios.
+- Capturas de Bruno mostraron bugs reales:
+  - Chrome no mostraba bien el logo en `chrome://extensions`/toolbar.
+  - La preview quedaba como placeholder `VID` y no renderizaba video real.
+- Correcciones de producto:
+  - Iconos de extension convertidos a PNG y referenciados en `manifest.json` como `icons` y `action.default_icon`.
+  - Popup usa PNG del icono.
+  - Deteccion de tipo ahora infiere MP4/WEBM/MOV/M3U8/MPD desde `Content-Type` cuando la URL no trae extension.
+  - Preview intenta renderizar videos detectados por `Content-Type`, no solo por extension visible.
+  - Se agrego limite Free local de 5 descargas/dia con `chrome.storage.local`; deteccion/preview siguen gratis.
+- Documentacion agregada:
+  - `MONETIZATION_AND_PAYMENTS.md`
+  - `COMPETITOR_RESEARCH.md`
+  - `TRAFFIC_AND_CONTENT.md`
+- Roadmap actualizado con Paddle vs Stripe, Free/Pro, multilenguaje, videos IA, investigacion de reviews y mejoras de preview/icono.

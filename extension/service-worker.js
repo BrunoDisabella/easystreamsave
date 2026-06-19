@@ -19,6 +19,7 @@ const MEDIA_MIME_TYPES = [
 ];
 
 const tabMedia = new Map();
+const FREE_DAILY_DOWNLOAD_LIMIT = 5;
 
 chrome.webRequest.onBeforeRequest.addListener(
   details => {
@@ -67,12 +68,20 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 
   if (message?.type === "download-media" && message.url) {
-    chrome.downloads.download({
-      url: message.url,
-      filename: suggestedFilename(message.url),
-      saveAs: true
+    consumeFreeDownload().then(result => {
+      if (!result.allowed) {
+        sendResponse({ ok: false, reason: "free-limit", limit: FREE_DAILY_DOWNLOAD_LIMIT });
+        return;
+      }
+
+      chrome.downloads.download({
+        url: message.url,
+        filename: suggestedFilename(message.url),
+        saveAs: true
+      });
+      sendResponse({ ok: true, remaining: result.remaining });
     });
-    sendResponse({ ok: true });
+    return true;
   }
 });
 
@@ -104,8 +113,8 @@ function isMediaResponse(headers) {
 
 function toMediaItem(rawUrl, headers = []) {
   const url = new URL(rawUrl);
-  const extension = detectExtension(url);
   const contentType = headerValue(headers, "content-type");
+  const extension = detectExtension(url, contentType);
   const contentLength = Number(headerValue(headers, "content-length") || 0);
 
   return {
@@ -135,10 +144,34 @@ function upsertMediaItem(tabId, item) {
   persistTab(tabId);
 }
 
-function detectExtension(url) {
+function detectExtension(url, contentType) {
   const fileName = url.pathname.split("/").filter(Boolean).pop() || "";
   const match = fileName.match(/\.([a-z0-9]{2,5})$/i);
-  return match?.[1]?.toUpperCase() || "MEDIA";
+  if (match?.[1]) {
+    return match[1].toUpperCase();
+  }
+
+  const normalizedType = (contentType || "").toLowerCase();
+  if (normalizedType.includes("mp4")) {
+    return "MP4";
+  }
+  if (normalizedType.includes("webm")) {
+    return "WEBM";
+  }
+  if (normalizedType.includes("quicktime")) {
+    return "MOV";
+  }
+  if (normalizedType.includes("mpegurl")) {
+    return "M3U8";
+  }
+  if (normalizedType.includes("dash+xml")) {
+    return "MPD";
+  }
+  if (normalizedType.startsWith("audio/")) {
+    return "AUDIO";
+  }
+
+  return "VIDEO";
 }
 
 function detectCategory(extension, contentType) {
@@ -182,4 +215,24 @@ function updateBadge(tabId) {
 
 function persistTab(tabId) {
   chrome.storage.session.set({ [String(tabId)]: tabMedia.get(tabId) || [] });
+}
+
+async function consumeFreeDownload() {
+  const today = new Date().toISOString().slice(0, 10);
+  const key = "freeDownloadUsage";
+  const stored = await chrome.storage.local.get(key);
+  const usage = stored[key]?.date === today
+    ? stored[key]
+    : { date: today, count: 0 };
+
+  if (usage.count >= FREE_DAILY_DOWNLOAD_LIMIT) {
+    return { allowed: false, remaining: 0 };
+  }
+
+  const next = { date: today, count: usage.count + 1 };
+  await chrome.storage.local.set({ [key]: next });
+  return {
+    allowed: true,
+    remaining: Math.max(0, FREE_DAILY_DOWNLOAD_LIMIT - next.count)
+  };
 }
