@@ -581,3 +581,13 @@ Revisar extension cargada manualmente en Chrome y preparar deploy de landing en 
   - `/video-downloadhelper-alternative/`
 - Se actualizo `sitemap.xml`, `CHROME_STORE_LISTING.md` y `ROADMAP.md`.
 - Regla aplicada: no crear paginas para keywords toxicas o de promesa falsa aunque tengan volumen, como YouTube/DRM/universal/private platform.
+- Commit/push: `824eb71 Prepare Keyword Planner SEO pages for production`.
+- Cloudflare Pages desplego correctamente en produccion:
+  - `/`
+  - `/es/`
+  - `/m3u8-downloader-chrome/`
+  - `/chrome-video-downloader-without-ads/`
+  - `/video-downloadhelper-alternative/`
+  - `/why-some-videos-cannot-be-downloaded.html`
+  - `/sitemap.xml`
+- Search Console: sitemap `https://easystreamsave.com/sitemap.xml` enviado via Maton. Respuesta submit 204; listado posterior OK con `isPending=true`, warnings 0 y errors 0.

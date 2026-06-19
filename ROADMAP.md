@@ -53,6 +53,7 @@ Tareas:
 - [x] Terms / Disclaimer.
 - [x] Pagina "Why some videos cannot be downloaded".
 - [x] Sitemap.
+- [x] Enviar sitemap a Search Console.
 - [x] Robots.txt.
 - [x] Deploy en Cloudflare Pages.
 - [x] Conectar dominio root `easystreamsave.com`.
@@ -166,7 +167,7 @@ Tareas:
 
 KPIs iniciales:
 
-- Primer objetivo: indexar dominio y 3 paginas SEO.
+- Primer objetivo: indexar dominio y 3 paginas SEO. Sitemap enviado a Search Console el 2026-06-19; estado inicial `isPending=true`, warnings 0, errors 0.
 - Primer objetivo Chrome Store: 100 installs organicas.
 - Activacion: 30% de usuarios con al menos 1 video detectado.
 - Retencion: 20% de usuarios activos despues de 7 dias.
