@@ -33,6 +33,11 @@ Tareas:
 - [x] Crear repositorio local del proyecto.
 - [x] Crear estructura base: extension, landing, docs.
 - [x] Crear logo/favicons iniciales.
+- [x] Guardar logo canonico nuevo de la app.
+  - Fuente SVG: `landing/assets/logo.svg`.
+  - Favicon web: `landing/assets/favicon.png` y `landing/assets/favicon.svg`.
+  - Iconos extension: `extension/icons/icon-16.png`, `icon-32.png`, `icon-48.png`, `icon-128.png` y SVGs equivalentes.
+- [x] Ajustar logo al estilo play/download limpio tipo referencia de Bruno, legible en toolbar Chrome.
 
 ## Fase 1 - Landing y Legal Minimo
 
@@ -53,8 +58,9 @@ Tareas:
 - [x] Conectar dominio root `easystreamsave.com`.
 - [x] Mejorar landing a MVP de produccion con foco en preview, privacidad, limites reales y marca consistente.
 - [x] Actualizar logo/favicons.
-- [ ] Crear landing `/es/`.
-- [ ] Agregar `hreflang` ingles/espanol cuando `/es/` exista.
+- [x] Crear landing `/es/`.
+- [x] Agregar `hreflang` ingles/espanol cuando `/es/` exista.
+- [x] Crear `/pricing/`, `/checkout/success/` y `/checkout/cancel/` como paginas listas para Paddle.
 - [ ] Resolver `www.easystreamsave.com`: reemplazar registro viejo de Hostinger por CNAME a `easystreamsave.pages.dev`.
 - [ ] Completar/verificar estado ICANN/email del dominio en Hostinger para evitar suspension futura.
 - [ ] Preparar verificacion Search Console.
@@ -84,10 +90,31 @@ Tareas:
 - [x] Mostrar tamano cuando el servidor informa `Content-Length`.
 - [x] Branding/icono de extension actualizado.
 - [x] Cambiar iconos de extension a PNG para toolbar/chrome://extensions.
+- [x] Quitar fondo negro dominante del icono de extension.
+- [x] Agregar content script para capturar posters/currentSrc de videos de pagina y mejorar thumbnails.
+- [x] Cambiar Free MVP a 10 descargas cada 30 minutos.
 - [x] Mensaje claro sobre limite YouTube/DRM en popup.
 - [x] Plan de QA manual para Chrome.
 - [ ] Tests manuales en 10-20 sitios no DRM.
-- [ ] Agregar boton "Open source URL" o "Preview in new tab" para diagnostico.
+- [ ] Validar preview real en TikTok y sitios con poster/currentSrc.
+- [x] Crear pagina QA local controlada para preview/download/screenshots sin depender de sitios aleatorios.
+- [x] Agregar boton "Open source URL" para diagnostico de preview/download.
+- [x] Agregar selector multilenguaje EN/ES en popup.
+- [x] Preparar `manifest.json` con Chrome i18n (`_locales/en`, `_locales/es`).
+- [x] Revertir logo de extension al estilo anterior.
+- [x] Agregar selector de formato con MP4 por defecto, Original, WebM y M3U8.
+- [x] Evitar descargas invalidas desde posters/blob URLs y restaurar media desde `chrome.storage.session`.
+- [x] Filtrar ruido: solo video, sin audio, sin requests no-media y sin fragmentos chicos de red.
+- [x] Validar `Content-Type` real antes de descargar para no guardar HTML como MP4.
+- [x] Mantener extension real del archivo al descargar para no simular conversion MP4/WebM/MOV inexistente.
+- [x] Deduplicar URLs por origen/path para reducir listas basura en Facebook/TikTok.
+- [x] Evitar falsos positivos `.mp4` capturados sin headers reales; no mostrar/descargar fragmentos chicos tipo `playback1.mp4`.
+- [x] Capturar respuestas de video aunque vengan por `fetch/xhr`, no solo `media`, para acercarse al comportamiento de competidores en TikTok.
+- [x] Reutilizar headers seguros capturados (`Referer`/`Origin`) al iniciar descargas de URLs firmadas cuando Chrome lo permite.
+- [x] Mejorar previews tomando `poster`, `og:image` o `twitter:image` cuando el video usa blob/currentSrc no descargable.
+- [x] Permitir preview reproducible con controles cuando el candidato tiene URL directa de video.
+- [x] Mejorar diagnostico de botones deshabilitados cuando solo hay miniatura/blob pero no URL directa descargable.
+- [ ] Investigar descarga completa de streams segmentados tipo Facebook/HLS con ensamblado/merge seguro y compatible con Chrome Web Store.
 
 ## Fase 3 - Publicacion Chrome Web Store
 
@@ -99,8 +126,11 @@ Publicar una primera version honesta y estable.
 Tareas:
 
 - [ ] Pagar Chrome Web Store Developer fee, USD 5 unico.
-- [ ] Preparar descripcion corta y larga.
-- [ ] Preparar screenshots.
+- [x] Preparar descripcion corta y larga.
+- [x] Preparar plan operativo de screenshots.
+- [ ] Capturar screenshots reales.
+- [x] Preparar ficha Chrome Web Store en ingles y espanol.
+- [x] Preparar keywords/copy de Chrome Web Store desde `KEYWORD_RESEARCH.md`.
 - [ ] Completar privacy questionnaire.
 - [ ] Subir extension.
 - [ ] Responder revisiones si Chrome pide cambios.
@@ -115,7 +145,13 @@ Captar trafico organico con paginas en ingles.
 Tareas:
 
 - [ ] Search Console.
+- [ ] GA4 landing.
+- [ ] GA4 Chrome Web Store.
 - [x] Sistema de experimentos SEO/crecimiento.
+- [ ] Crear analisis de palabras clave antes de publicar nuevos articulos.
+- [ ] Evaluar Google Ads MCP / Keyword Planner para volumen real.
+- [x] Crear `KEYWORD_RESEARCH.md` con clusters EN/ES y metodo de priorizacion.
+- [x] Incorporar WebExtension.net / Chrome Web Store Keyword Research Tool como fuente especifica para CWS SEO.
 - [ ] Articulo "Cococut alternative without ads".
 - [ ] Articulo "Chrome video downloader without ads".
 - [ ] Articulo "HLS and M3U8 downloader for Chrome".
@@ -148,8 +184,14 @@ Tareas:
 - [x] Validar pricing inicial con competencia.
 - [x] Definir hipotesis MVP: Free limitado + Pro Starter USD 1.99/mes.
 - [ ] Validar Paddle vs Stripe como plataforma de pago optima.
-- [ ] Implementar limite Free: 5 descargas/dia o 25/semana, sin bloquear preview/deteccion.
+- [x] Definir Paddle como opcion recomendada para MVP global.
+- [x] Implementar limite Free local MVP: 10 descargas cada 30 minutos, sin bloquear preview/deteccion.
 - [ ] Implementar pantalla Pro local al alcanzar limite.
+- [ ] Crear backend minimo de licencias: email/customer id, estado, vencimiento, provider.
+- [ ] Crear webhook Paddle firmado.
+- [ ] Crear endpoint de validacion de licencia para la extension.
+- [x] Definir selector Free inicial de formato preferido sin prometer conversion cuando la fuente no exista.
+- [ ] Definir selector de formato/calidad Pro con conversion/merge real sin prometer 1080p/4K cuando la fuente no exista.
 - [ ] Implementar licencia simple.
 - [ ] Early adopter lifetime USD 19.
 - [ ] Precio normal lifetime USD 29-39.
@@ -170,6 +212,7 @@ Tareas:
 - [ ] Crear tablero de metricas inicial.
 - [ ] Definir eventos de activacion sin tracking invasivo.
 - [ ] Crear rutina quincenal de investigacion de reviews/competencia.
+- [ ] Documentar cron diario en CRM `/crons` si se crea o modifica cualquier cron productivo.
 
 ## Proxima Tarea Recomendada
 
@@ -182,4 +225,50 @@ Estado a retomar:
 - Pendiente en Cloudflare DNS: dejar `www` como CNAME hacia `easystreamsave.pages.dev`, proxy activado.
 - Pendiente en Hostinger: verificar email ICANN/registrante si aparece alerta de suspension.
 
-Mientras eso queda pausado, la proxima tarea interna recomendada es probar el nuevo MVP con preview en Chrome, anotar sitios donde el preview no cargue por CORS/headers y preparar screenshots para Chrome Web Store.
+Mientras eso queda pausado, la proxima tarea interna recomendada es probar el nuevo MVP con preview/Open en Chrome, anotar sitios donde el preview no cargue por CORS/headers y preparar screenshots para Chrome Web Store.
+
+## Tareas Para Proximos Crons/Agente Autonomo
+
+Ventana especial 2026-06-19:
+Bruno pidio crons solo por hoy, cada una hora hasta las 09:00 UY, con aviso por Telegram, documentando que se hizo y que seguiria.
+
+1. QA extension: usar `landing/qa/` como fuente controlada, luego probar preview/Open/download en 10-20 sitios no DRM y registrar resultados en `MANUAL_TEST_PLAN.md`.
+2. Chrome Store: ejecutar `SCREENSHOT_PLAN.md`, capturar 5-7 screenshots reales desde `landing/qa/` y fuentes publicas, y registrar URLs exactas en `MANUAL_TEST_PLAN.md`.
+3. SEO: convertir `KEYWORD_RESEARCH.md` en paginas concretas. `/es/` listo; siguiente sugerida: `/cococut-alternative/`.
+4. Metricas: preparar snippet GA4 parametrizable, pero no desplegarlo sin confirmar property id.
+5. Licencias: disenar backend minimo Paddle sin tocar proveedor real todavia.
+6. Seguridad: revisar que la extension no contenga secretos y que Pro no dependa solo del storage local.
+
+## Experimentos/Medicion de Producto
+
+## Analisis Competencia ZIP/CRX
+
+- Fecha: 2026-06-19.
+- Archivo de notas: `COMPETITOR_REVERSE_ENGINEERING.md`.
+- Competidores inspeccionados:
+  - Video Downloader Professional `2.1.7`.
+  - Video DownloadHelper `10.2.71.2`.
+- Aprendizajes incorporados en `0.1.10`:
+  - normalizar URLs con parametros de rango cuando headers prueban video grande;
+  - leer metadata estructurada tipo `og:video` / `twitter:player:stream`;
+  - mejorar fallback de preview de video a poster/thumbnail;
+  - documentar que la mejora grande futura es adapter por sitio + downloader HLS/segmentos.
+- Avance `0.1.11`:
+  - adapters propios iniciales para TikTok y Facebook;
+  - extraccion defensiva de URLs desde HTML/JSON embebido;
+  - downloader HLS MVP para playlists no cifradas;
+  - seleccion de variante HLS de mayor bitrate;
+  - limite de segmentos para evitar congelar Chrome.
+- Regla: no copiar codigo propietario ni romper protecciones; usar solo aprendizajes de arquitectura y comportamiento.
+
+### UX-001: Open source diagnostics
+
+- Fecha inicio: 2026-06-19.
+- Area: extension UX/QA.
+- Hipotesis: un boton "Open" por item reduce confusion cuando el preview no carga o la descarga falla por headers, CORS, firmas temporales o permisos del servidor.
+- Cambio aplicado: popup agrega boton `Open` que abre la URL detectada en una pestana en segundo plano.
+- Metrica primaria: durante QA manual, porcentaje de fallos donde el tester puede distinguir entre "URL accesible", "URL expirada/bloqueada" y "preview bloqueado".
+- Metrica secundaria: cantidad de bugs clasificados con causa probable en `MANUAL_TEST_PLAN.md`.
+- Ventana minima: 10-20 sitios no DRM antes de Chrome Web Store.
+- Resultado: pendiente.
+- Decision posterior: mantener si acelera diagnostico; iterar a "Copy URL" si abrir pestanas resulta molesto.

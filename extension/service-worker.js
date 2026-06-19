@@ -8,40 +8,83 @@ const MEDIA_EXTENSIONS = [
 ];
 
 const MEDIA_MIME_PREFIXES = [
-  "video/",
-  "audio/"
+  "video/"
 ];
 
 const MEDIA_MIME_TYPES = [
   "application/vnd.apple.mpegurl",
   "application/x-mpegurl",
+  "audio/mpegurl",
   "application/dash+xml"
 ];
 
 const tabMedia = new Map();
-const FREE_DAILY_DOWNLOAD_LIMIT = 5;
+const requestHeadersById = new Map();
+const FREE_DOWNLOAD_LIMIT = 10;
+const FREE_RESET_WINDOW_MS = 30 * 60 * 1000;
+const DOWNLOADABLE_PROTOCOLS = new Set(["http:", "https:"]);
+const MIN_VIDEO_BYTES = 1024 * 1024;
+const CAPTURE_HEADER_ALLOWLIST = new Set(["referer", "origin"]);
+const DOWNLOAD_HEADER_ALLOWLIST = new Set(["referer"]);
+const MAX_HLS_SEGMENTS = 180;
 
 chrome.webRequest.onBeforeRequest.addListener(
   details => {
-    if (details.tabId < 0 || !isMediaUrl(details.url)) {
+    if (details.tabId < 0 || details.type !== "media" || !isMediaUrl(details.url)) {
       return;
     }
 
-    upsertMediaItem(details.tabId, toMediaItem(details.url));
+    const provisional = toMediaItem(details.url);
+    if (isStreamItem(provisional)) {
+      upsertMediaItem(details.tabId, provisional);
+    }
   },
   { urls: ["<all_urls>"] }
 );
 
-chrome.webRequest.onHeadersReceived.addListener(
+chrome.webRequest.onBeforeSendHeaders.addListener(
   details => {
-    if (details.tabId < 0 || !isMediaResponse(details.responseHeaders || [])) {
+    if (details.tabId < 0) {
       return;
     }
 
-    upsertMediaItem(details.tabId, toMediaItem(details.url, details.responseHeaders || []));
+    const headers = (details.requestHeaders || [])
+      .filter(header => CAPTURE_HEADER_ALLOWLIST.has(header.name.toLowerCase()))
+      .map(header => ({ name: header.name, value: header.value }));
+
+    if (headers.length) {
+      requestHeadersById.set(details.requestId, headers);
+    }
+  },
+  { urls: ["<all_urls>"] },
+  ["requestHeaders", "extraHeaders"]
+);
+
+chrome.webRequest.onHeadersReceived.addListener(
+  details => {
+    if (details.tabId < 0 || !isMediaCandidate(details)) {
+      requestHeadersById.delete(details.requestId);
+      return;
+    }
+
+    const item = toMediaItem(details.url, details.responseHeaders || []);
+    item.requestHeaders = requestHeadersById.get(details.requestId) || [];
+    if (isUsefulMediaItem(item)) {
+      upsertMediaItem(details.tabId, item);
+    } else {
+      removeMediaItem(details.tabId, item);
+    }
+    requestHeadersById.delete(details.requestId);
   },
   { urls: ["<all_urls>"] },
   ["responseHeaders"]
+);
+
+chrome.webRequest.onErrorOccurred.addListener(
+  details => {
+    requestHeadersById.delete(details.requestId);
+  },
+  { urls: ["<all_urls>"] }
 );
 
 chrome.tabs.onRemoved.addListener(tabId => {
@@ -52,7 +95,9 @@ chrome.tabs.onRemoved.addListener(tabId => {
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message?.type === "get-media") {
     getActiveTab().then(tab => {
-      sendResponse({ media: tabMedia.get(tab.id) || [], tabId: tab.id });
+      getTabMedia(tab.id).then(media => {
+        sendResponse({ media, tabId: tab.id });
+      });
     });
     return true;
   }
@@ -67,19 +112,87 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return true;
   }
 
+  if (message?.type === "page-media" && sender.tab?.id >= 0 && Array.isArray(message.media)) {
+    for (const item of message.media) {
+      upsertMediaItem(sender.tab.id, normalizePageMediaItem(item));
+    }
+    sendResponse({ ok: true });
+    return false;
+  }
+
   if (message?.type === "download-media" && message.url) {
-    consumeFreeDownload().then(result => {
-      if (!result.allowed) {
-        sendResponse({ ok: false, reason: "free-limit", limit: FREE_DAILY_DOWNLOAD_LIMIT });
+    const url = downloadableUrl(message.url);
+    if (!url) {
+      sendResponse({ ok: false, reason: "not-downloadable" });
+      return false;
+    }
+
+    getActiveTab().then(tab => getKnownMediaItem(tab.id, url)).then(knownItem => {
+      return validateDownload(url, message.format || "mp4", knownItem).then(validation => ({ validation, knownItem }));
+    }).then(({ validation, knownItem }) => {
+      if (!validation.ok) {
+        sendResponse({
+          ok: false,
+          reason: validation.reason,
+          contentType: validation.contentType || null
+        });
         return;
       }
 
-      chrome.downloads.download({
-        url: message.url,
-        filename: suggestedFilename(message.url),
-        saveAs: true
+      return consumeFreeDownload().then(result => {
+        if (!result.allowed) {
+          sendResponse({
+            ok: false,
+            reason: "free-limit",
+            limit: FREE_DOWNLOAD_LIMIT,
+            resetAt: result.resetAt
+          });
+          return;
+        }
+
+        if (validation.isHlsDownload) {
+          downloadHlsStream(url, knownItem, message.format || "original").then(downloadId => {
+            sendResponse({ ok: true, remaining: result.remaining, downloadId });
+          }).catch(error => {
+            sendResponse({
+              ok: false,
+              reason: error?.reason || "download-failed",
+              error: error?.message || "Could not download this HLS stream"
+            });
+          });
+          return;
+        }
+
+        const filename = suggestedFilename(url, message.format || "mp4", validation.contentType);
+        const options = {
+          url,
+          filename,
+          saveAs: true
+        };
+        const headers = safeDownloadHeaders(knownItem?.requestHeaders);
+        if (headers.length) {
+          options.headers = headers;
+        }
+
+        chrome.downloads.download(options, downloadId => {
+          if (chrome.runtime.lastError || !downloadId) {
+            sendResponse({
+              ok: false,
+              reason: "download-failed",
+              error: chrome.runtime.lastError?.message || "Chrome rejected the download"
+            });
+            return;
+          }
+
+          sendResponse({ ok: true, remaining: result.remaining, downloadId });
+        });
       });
-      sendResponse({ ok: true, remaining: result.remaining });
+    }).catch(error => {
+      sendResponse({
+        ok: false,
+        reason: "download-failed",
+        error: error?.message || "Could not validate this video URL"
+      });
     });
     return true;
   }
@@ -111,37 +224,144 @@ function isMediaResponse(headers) {
     || MEDIA_MIME_TYPES.includes(contentType);
 }
 
+function isMediaCandidate(details) {
+  const headers = details.responseHeaders || [];
+  if (isMediaResponse(headers)) {
+    return true;
+  }
+
+  return details.type === "media" && isMediaUrl(details.url);
+}
+
 function toMediaItem(rawUrl, headers = []) {
-  const url = new URL(rawUrl);
   const contentType = headerValue(headers, "content-type");
+  const contentLength = Number(headerValue(headers, "content-length") || contentRangeTotal(headers) || 0);
+  const normalizedUrl = normalizeSegmentedVideoUrl(rawUrl, contentType, contentLength);
+  const url = new URL(normalizedUrl);
   const extension = detectExtension(url, contentType);
-  const contentLength = Number(headerValue(headers, "content-length") || 0);
 
   return {
-    url: rawUrl,
+    url: normalizedUrl,
     type: extension,
     category: detectCategory(extension, contentType),
     size: Number.isFinite(contentLength) && contentLength > 0 ? contentLength : null,
     contentType: contentType || null,
     name: decodeURIComponent(url.pathname.split("/").filter(Boolean).pop() || `media.${extension.toLowerCase()}`),
     host: url.hostname,
+    source: "network",
+    trusted: Boolean(contentType),
+    score: contentLength || 0,
+    detectedAt: Date.now()
+  };
+}
+
+function normalizePageMediaItem(item) {
+  let host = item.host || "current tab";
+  const url = downloadableUrl(item.url);
+  const previewUrl = item.previewUrl || item.posterUrl || item.url;
+
+  try {
+    host = new URL(url || previewUrl).hostname || host;
+  } catch {
+    // Blob URLs and restricted URLs can fail URL hostname parsing.
+  }
+
+  return {
+    url,
+    previewUrl,
+    posterUrl: item.posterUrl || null,
+    type: item.type || "VIDEO",
+    category: item.category || "video",
+    size: null,
+    contentType: item.contentType || null,
+    name: item.name || chrome.i18n.getMessage("pageVideoName") || "Page video",
+    host,
+    quality: item.quality || null,
+    source: item.source || "page-video",
+    score: item.posterUrl ? 1 : 0,
     detectedAt: Date.now()
   };
 }
 
 function upsertMediaItem(tabId, item) {
+  if (!item || !isUsefulMediaItem(item)) {
+    return;
+  }
+
   const current = tabMedia.get(tabId) || [];
-  const index = current.findIndex(existing => existing.url === item.url);
+  const previewItem = bestPreviewItem(current);
+  if (item.source === "network" && previewItem) {
+    item.previewUrl = item.previewUrl || previewItem.previewUrl || previewItem.posterUrl;
+    item.posterUrl = item.posterUrl || previewItem.posterUrl;
+    item.name = item.name && item.name !== "media.video" ? item.name : previewItem.name;
+    item.quality = item.quality || previewItem.quality;
+  }
+
+  if ((item.posterUrl || item.previewUrl) && item.host) {
+    for (const existing of current) {
+      if (existing.source === "network" && sameRegistrableHost(existing.host, item.host)) {
+        existing.previewUrl = existing.previewUrl || item.previewUrl || item.posterUrl;
+        existing.posterUrl = existing.posterUrl || item.posterUrl;
+        existing.name = existing.name || item.name;
+        existing.quality = existing.quality || item.quality;
+      }
+    }
+  }
+
+  const visualDuplicateIndex = findVisualDuplicateIndex(current, item);
+  const index = visualDuplicateIndex >= 0
+    ? visualDuplicateIndex
+    : current.findIndex(existing => mediaKey(existing) === mediaKey(item));
 
   if (index >= 0) {
-    current[index] = { ...current[index], ...item };
+    current[index] = betterMediaItem(current[index], item);
   } else {
     current.unshift(item);
   }
 
-  tabMedia.set(tabId, current.slice(0, 80));
+  tabMedia.set(tabId, current.sort(mediaSort).slice(0, 25));
   updateBadge(tabId);
   persistTab(tabId);
+}
+
+function bestPreviewItem(items) {
+  return items.find(item => item.posterUrl || item.previewUrl) || null;
+}
+
+function sameRegistrableHost(a, b) {
+  const left = String(a || "").split(".").slice(-2).join(".");
+  const right = String(b || "").split(".").slice(-2).join(".");
+  return Boolean(left && right && left === right);
+}
+
+function findVisualDuplicateIndex(items, item) {
+  const visualKey = item.posterUrl || item.previewUrl;
+  if (!visualKey || item.category !== "video") {
+    return -1;
+  }
+
+  return items.findIndex(existing => {
+    const existingKey = existing.posterUrl || existing.previewUrl;
+    return existing.category === "video"
+      && existingKey === visualKey
+      && sameRegistrableHost(existing.host, item.host);
+  });
+}
+
+function mediaKey(item) {
+  if (item.url) {
+    return normalizedMediaUrl(item.url);
+  }
+  return item.previewUrl || `${item.host}:${item.name}`;
+}
+
+function downloadableUrl(rawUrl) {
+  try {
+    const url = new URL(rawUrl);
+    return DOWNLOADABLE_PROTOCOLS.has(url.protocol) ? url.href : null;
+  } catch {
+    return null;
+  }
 }
 
 function detectExtension(url, contentType) {
@@ -167,10 +387,6 @@ function detectExtension(url, contentType) {
   if (normalizedType.includes("dash+xml")) {
     return "MPD";
   }
-  if (normalizedType.startsWith("audio/")) {
-    return "AUDIO";
-  }
-
   return "VIDEO";
 }
 
@@ -178,9 +394,6 @@ function detectCategory(extension, contentType) {
   const normalizedType = (contentType || "").toLowerCase();
   if (extension === "M3U8" || extension === "MPD" || normalizedType.includes("mpegurl") || normalizedType.includes("dash+xml")) {
     return "stream";
-  }
-  if (normalizedType.startsWith("audio/")) {
-    return "audio";
   }
   return "video";
 }
@@ -193,18 +406,376 @@ function headerValue(headers, name) {
     ?.trim();
 }
 
-function suggestedFilename(rawUrl) {
+function contentRangeTotal(headers) {
+  const value = headerValue(headers, "content-range") || "";
+  return value.match(/\/(\d+)$/)?.[1] || "";
+}
+
+function normalizeSegmentedVideoUrl(rawUrl, contentType = "", contentLength = 0) {
   try {
     const url = new URL(rawUrl);
-    return decodeURIComponent(url.pathname.split("/").filter(Boolean).pop() || "easy-stream-save-media");
+    const normalizedType = String(contentType || "").toLowerCase();
+    const pathType = detectExtension(url, normalizedType);
+    const looksLikeVideo = normalizedType.startsWith("video/")
+      || ["MP4", "WEBM", "MOV", "M4V", "VIDEO"].includes(pathType);
+
+    if (!looksLikeVideo || Number(contentLength || 0) < MIN_VIDEO_BYTES) {
+      return rawUrl;
+    }
+
+    // Some CDNs expose the same video as many byte-range URLs. Keeping the
+    // range token makes the popup show fragments and can download a tiny file.
+    const rangeParams = [
+      "range",
+      "bytestart",
+      "byteend",
+      "start",
+      "end"
+    ];
+    for (const param of rangeParams) {
+      url.searchParams.delete(param);
+    }
+    return url.href;
   } catch {
-    return "easy-stream-save-media";
+    return rawUrl;
   }
+}
+
+function suggestedFilename(rawUrl, preferredFormat = "mp4", contentType = "") {
+  try {
+    const url = new URL(rawUrl);
+    const rawName = decodeURIComponent(url.pathname.split("/").filter(Boolean).pop() || "easy-stream-save-media");
+    const safeName = rawName.replace(/[\\/:*?"<>|]+/g, "-").slice(0, 80) || "easy-stream-save-media";
+    const extension = extensionForDownload(preferredFormat, contentType, safeName);
+    const withoutExtension = safeName.replace(/\.[a-z0-9]{2,5}$/i, "");
+    if (preferredFormat === "original" && /\.[a-z0-9]{2,5}$/i.test(safeName)) {
+      return safeName;
+    }
+    return `${withoutExtension}.${extension}`;
+  } catch {
+    return `easy-stream-save-media.${preferredFormat === "original" ? "mp4" : preferredFormat}`;
+  }
+}
+
+function extensionForDownload(preferredFormat, contentType, currentName) {
+  const normalizedType = String(contentType || "").toLowerCase();
+  if (normalizedType.includes("mp4")) {
+    return "mp4";
+  }
+  if (normalizedType.includes("webm")) {
+    return "webm";
+  }
+  if (normalizedType.includes("quicktime")) {
+    return "mov";
+  }
+  if (normalizedType.includes("mpegurl")) {
+    return "m3u8";
+  }
+  if (normalizedType.includes("dash+xml")) {
+    return "mpd";
+  }
+  if (normalizedType.includes("mp2t")) {
+    return "ts";
+  }
+
+  const current = currentName.match(/\.([a-z0-9]{2,5})$/i)?.[1];
+  if (current) {
+    return current;
+  }
+  return preferredFormat && preferredFormat !== "original" ? preferredFormat : "mp4";
+}
+
+function isUsefulMediaItem(item) {
+  if (!item) {
+    return false;
+  }
+
+  if (isStreamItem(item)) {
+    return Boolean(item.url);
+  }
+
+  if (item.category !== "video") {
+    return false;
+  }
+
+  if (item.source === "page-video"
+    || item.source === "page-preview"
+    || item.source === "page-structured"
+    || item.source === "adapter-tiktok"
+    || item.source === "adapter-facebook") {
+    if (!item.url) {
+      return Boolean(item.previewUrl || item.posterUrl);
+    }
+
+    return Boolean(downloadableUrl(item.url) || item.previewUrl || item.posterUrl);
+  }
+
+  return Boolean(item.size && item.size >= MIN_VIDEO_BYTES);
+}
+
+function isStreamItem(item) {
+  const type = String(item?.type || "").toUpperCase();
+  return item?.category === "stream" || type === "M3U8" || type === "MPD";
+}
+
+function removeMediaItem(tabId, item) {
+  if (!item) {
+    return;
+  }
+
+  const current = tabMedia.get(tabId) || [];
+  const next = current.filter(existing => mediaKey(existing) !== mediaKey(item));
+  if (next.length === current.length) {
+    return;
+  }
+
+  tabMedia.set(tabId, next);
+  updateBadge(tabId);
+  persistTab(tabId);
+}
+
+function betterMediaItem(existing, incoming) {
+  const merged = { ...existing, ...incoming };
+  if (existing.posterUrl && !incoming.posterUrl) {
+    merged.posterUrl = existing.posterUrl;
+  }
+  if (existing.previewUrl && !incoming.previewUrl) {
+    merged.previewUrl = existing.previewUrl;
+  }
+  if ((existing.size || 0) > (incoming.size || 0)) {
+    merged.size = existing.size;
+  }
+  merged.score = Math.max(existing.score || 0, incoming.score || 0, merged.size || 0);
+  return merged;
+}
+
+function mediaSort(a, b) {
+  const previewDelta = Number(Boolean(b.posterUrl || b.previewUrl)) - Number(Boolean(a.posterUrl || a.previewUrl));
+  if (previewDelta) {
+    return previewDelta;
+  }
+  return (b.score || b.size || 0) - (a.score || a.size || 0);
+}
+
+function normalizedMediaUrl(rawUrl) {
+  try {
+    const url = new URL(rawUrl);
+    return `${url.origin}${url.pathname}`;
+  } catch {
+    return rawUrl;
+  }
+}
+
+async function validateDownload(rawUrl, preferredFormat, knownItem = null) {
+  const knownType = String(knownItem?.contentType || "").split(";")[0].trim().toLowerCase();
+  const knownSize = Number(knownItem?.size || 0);
+  const knownPathType = detectExtension(new URL(rawUrl), knownType);
+  const knownStream = ["M3U8", "MPD"].includes(knownPathType) || knownItem?.category === "stream";
+
+  if (knownItem?.trusted && (knownType.startsWith("video/") || MEDIA_MIME_TYPES.includes(knownType))) {
+    if (preferredFormat === "mp4" && knownStream) {
+      return { ok: false, reason: "stream-needs-original", contentType: knownType };
+    }
+
+    if (!knownStream && knownSize && knownSize < MIN_VIDEO_BYTES) {
+      return { ok: false, reason: "too-small", contentType: knownType, contentLength: knownSize };
+    }
+
+    return { ok: true, contentType: knownType, isHlsDownload: knownStream && knownPathType === "M3U8" };
+  }
+
+  const response = await fetchVideoHeaders(rawUrl);
+  const contentType = response.headers.get("content-type")?.split(";")[0]?.trim().toLowerCase() || "";
+  const contentLength = detectedResponseSize(response);
+  const pathType = detectExtension(new URL(rawUrl), contentType);
+  const inferredVideo = ["MP4", "WEBM", "MOV", "M4V"].includes(pathType);
+  const inferredStream = ["M3U8", "MPD"].includes(pathType);
+  const genericBinary = ["application/octet-stream", "binary/octet-stream"].includes(contentType);
+
+  if (!response.ok && response.status !== 206) {
+    return { ok: false, reason: "download-failed", contentType, status: response.status };
+  }
+
+  if (!contentType.startsWith("video/")
+    && !MEDIA_MIME_TYPES.includes(contentType)
+    && !(genericBinary && (inferredVideo || inferredStream))
+    && !inferredVideo
+    && !inferredStream) {
+    return { ok: false, reason: "not-video-response", contentType };
+  }
+
+  if (preferredFormat === "mp4" && (contentType.includes("mpegurl") || inferredStream)) {
+    return { ok: false, reason: "stream-needs-original", contentType };
+  }
+
+  if (!inferredStream && contentLength && contentLength < MIN_VIDEO_BYTES) {
+    return { ok: false, reason: "too-small", contentType, contentLength };
+  }
+
+  return { ok: true, contentType, isHlsDownload: inferredStream && pathType === "M3U8" };
+}
+
+async function downloadHlsStream(rawUrl, knownItem = null, preferredFormat = "original") {
+  const headers = Object.fromEntries(
+    safeDownloadHeaders(knownItem?.requestHeaders).map(header => [header.name, header.value])
+  );
+  const playlistResponse = await fetch(rawUrl, {
+    credentials: "include",
+    cache: "no-store",
+    headers
+  });
+
+  if (!playlistResponse.ok) {
+    throw Object.assign(new Error(`Playlist failed with HTTP ${playlistResponse.status}`), { reason: "download-failed" });
+  }
+
+  const playlistUrl = playlistResponse.url || rawUrl;
+  const playlistText = await playlistResponse.text();
+  if (/#EXT-X-KEY/i.test(playlistText)) {
+    throw Object.assign(new Error("Encrypted HLS is not supported"), { reason: "encrypted-hls" });
+  }
+
+  const variantUrl = bestHlsVariantUrl(playlistText, playlistUrl);
+  if (variantUrl) {
+    return downloadHlsStream(variantUrl, knownItem, preferredFormat);
+  }
+
+  const segmentUrls = hlsSegmentUrls(playlistText, playlistUrl);
+  if (!segmentUrls.length) {
+    throw Object.assign(new Error("No HLS segments found"), { reason: "download-failed" });
+  }
+  if (segmentUrls.length > MAX_HLS_SEGMENTS) {
+    throw Object.assign(new Error(`Too many HLS segments (${segmentUrls.length})`), { reason: "too-many-segments" });
+  }
+
+  const buffers = [];
+  for (const segmentUrl of segmentUrls) {
+    const segmentResponse = await fetch(segmentUrl, {
+      credentials: "include",
+      cache: "no-store",
+      headers
+    });
+    if (!segmentResponse.ok) {
+      throw Object.assign(new Error(`Segment failed with HTTP ${segmentResponse.status}`), { reason: "download-failed" });
+    }
+    buffers.push(await segmentResponse.arrayBuffer());
+  }
+
+  const blob = new Blob(buffers, { type: "video/mp2t" });
+  const objectUrl = URL.createObjectURL(blob);
+  const filename = suggestedFilename(rawUrl, preferredFormat, "video/mp2t").replace(/\.[a-z0-9]{2,5}$/i, ".ts");
+
+  return new Promise((resolve, reject) => {
+    chrome.downloads.download({ url: objectUrl, filename, saveAs: true }, downloadId => {
+      setTimeout(() => URL.revokeObjectURL(objectUrl), 60_000);
+      if (chrome.runtime.lastError || !downloadId) {
+        reject(Object.assign(new Error(chrome.runtime.lastError?.message || "Chrome rejected the HLS download"), { reason: "download-failed" }));
+        return;
+      }
+      resolve(downloadId);
+    });
+  });
+}
+
+function bestHlsVariantUrl(playlistText, playlistUrl) {
+  const lines = playlistText.split(/\r?\n/);
+  let best = null;
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index].trim();
+    if (!line.startsWith("#EXT-X-STREAM-INF")) {
+      continue;
+    }
+    const bandwidth = Number(line.match(/BANDWIDTH=(\d+)/i)?.[1] || 0);
+    const next = nextHlsUri(lines, index + 1);
+    if (next && (!best || bandwidth > best.bandwidth)) {
+      best = { bandwidth, url: new URL(next, playlistUrl).href };
+    }
+  }
+  return best?.url || null;
+}
+
+function hlsSegmentUrls(playlistText, playlistUrl) {
+  return playlistText
+    .split(/\r?\n/)
+    .map(line => line.trim())
+    .filter(line => line && !line.startsWith("#"))
+    .filter(line => !/^data:/i.test(line))
+    .map(line => new URL(line, playlistUrl).href);
+}
+
+function nextHlsUri(lines, startIndex) {
+  for (let index = startIndex; index < lines.length; index += 1) {
+    const line = lines[index].trim();
+    if (line && !line.startsWith("#")) {
+      return line;
+    }
+  }
+  return null;
+}
+
+async function getKnownMediaItem(tabId, rawUrl) {
+  const key = normalizedMediaUrl(rawUrl);
+  const media = await getTabMedia(tabId);
+  return media.find(item => normalizedMediaUrl(item.url) === key) || null;
+}
+
+function safeDownloadHeaders(headers = []) {
+  return headers
+    .filter(header => header?.name && header?.value && DOWNLOAD_HEADER_ALLOWLIST.has(header.name.toLowerCase()))
+    .map(header => ({ name: header.name, value: header.value }));
+}
+
+function detectedResponseSize(response) {
+  const contentRange = response.headers.get("content-range") || "";
+  const rangeTotal = contentRange.match(/\/(\d+)$/)?.[1];
+  if (rangeTotal) {
+    return Number(rangeTotal);
+  }
+
+  const contentLength = response.headers.get("content-length");
+  return contentLength ? Number(contentLength) : null;
+}
+
+async function fetchVideoHeaders(rawUrl) {
+  let response = await fetch(rawUrl, {
+    method: "HEAD",
+    credentials: "include",
+    cache: "no-store"
+  });
+
+  if (response.ok && response.headers.get("content-type")) {
+    return response;
+  }
+
+  response = await fetch(rawUrl, {
+    method: "GET",
+    headers: { Range: "bytes=0-0" },
+    credentials: "include",
+    cache: "no-store"
+  });
+
+  return response;
 }
 
 async function getActiveTab() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   return tab;
+}
+
+async function getTabMedia(tabId) {
+  const memory = tabMedia.get(tabId);
+  if (memory?.length) {
+    return memory;
+  }
+
+  const stored = await chrome.storage.session.get(String(tabId));
+  const media = Array.isArray(stored[String(tabId)])
+    ? stored[String(tabId)].filter(isUsefulMediaItem).sort(mediaSort).slice(0, 25)
+    : [];
+  if (media.length) {
+    tabMedia.set(tabId, media);
+  }
+  return media;
 }
 
 function updateBadge(tabId) {
@@ -218,21 +789,22 @@ function persistTab(tabId) {
 }
 
 async function consumeFreeDownload() {
-  const today = new Date().toISOString().slice(0, 10);
   const key = "freeDownloadUsage";
   const stored = await chrome.storage.local.get(key);
-  const usage = stored[key]?.date === today
+  const now = Date.now();
+  const usage = stored[key]?.resetAt > now
     ? stored[key]
-    : { date: today, count: 0 };
+    : { count: 0, resetAt: now + FREE_RESET_WINDOW_MS };
 
-  if (usage.count >= FREE_DAILY_DOWNLOAD_LIMIT) {
-    return { allowed: false, remaining: 0 };
+  if (usage.count >= FREE_DOWNLOAD_LIMIT) {
+    return { allowed: false, remaining: 0, resetAt: usage.resetAt };
   }
 
-  const next = { date: today, count: usage.count + 1 };
+  const next = { count: usage.count + 1, resetAt: usage.resetAt };
   await chrome.storage.local.set({ [key]: next });
   return {
     allowed: true,
-    remaining: Math.max(0, FREE_DAILY_DOWNLOAD_LIMIT - next.count)
+    remaining: Math.max(0, FREE_DOWNLOAD_LIMIT - next.count),
+    resetAt: next.resetAt
   };
 }

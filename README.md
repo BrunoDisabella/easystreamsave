@@ -12,12 +12,17 @@ Production MVP direction:
 ## Structure
 
 - `landing/`: static marketing/legal site for `easystreamsave.com`.
+  - Includes English home plus `/es/` Spanish landing with hreflang alternates.
+  - Includes static pricing and checkout mock pages for the future Paddle flow.
+  - Includes `/qa/`, a noindex controlled media page for local extension QA and safe screenshot preparation.
 - `extension/`: Chrome Manifest V3 extension MVP.
 - `BUSINESS_PLAN.md`: living business plan.
 - `ROADMAP.md`: execution roadmap and KPIs.
 - `WORKLOG.md`: chronological project log.
 - `AGENT_BRIEF.md`: autonomous agent instructions.
 - `MANUAL_TEST_PLAN.md`: local Chrome QA checklist for the extension MVP.
+- `CHROME_STORE_LISTING.md`: draft Chrome Web Store listing copy, privacy notes, keywords, and screenshot checklist.
+- `SCREENSHOT_PLAN.md`: exact Chrome Web Store screenshot plan, safe sources, and capture criteria.
 - `COMPETITOR_RESEARCH.md`: competitor UX/features research.
 - `MONETIZATION_AND_PAYMENTS.md`: Free/Pro limits and payment platform decision.
 - `TRAFFIC_AND_CONTENT.md`: SEO, AI tutorial, multilingual, and traffic plan.

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Easy Stream Save QA Media Page</title>
+    <meta name="robots" content="noindex">
+    <meta name="description" content="Controlled QA page for testing Easy Stream Save video detection, preview, downloads, and Chrome Web Store screenshots.">
+    <link rel="icon" href="/assets/favicon.png" type="image/png">
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Easy Stream Save home">
+        <img src="/assets/logo.svg" alt="" width="36" height="36">
+        <span>Easy Stream Save</span>
+      </a>
+      <nav aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/privacy.html">Privacy</a>
+      </nav>
+    </header>
+
+    <main class="content-page wide-page qa-page">
+      <p class="eyebrow">Internal QA</p>
+      <h1>Controlled media test page</h1>
+      <p class="compact-lead">Use this page to trigger safe, public demo media while testing the extension popup, preview thumbnails, direct downloads, and Chrome Web Store screenshots. It is intentionally marked noindex.</p>
+
+      <section class="qa-grid" aria-label="QA media cases">
+        <article class="qa-card">
+          <h2>Direct MP4 preview</h2>
+          <p>Expected: the extension detects an MP4 item, shows a video preview, and allows a direct download.</p>
+          <video controls preload="metadata" poster="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.jpg">
+            <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4">
+          </video>
+          <a class="button secondary" href="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4">Open MP4 source</a>
+        </article>
+
+        <article class="qa-card">
+          <h2>Direct WebM preview</h2>
+          <p>Expected: the extension detects a WebM item and keeps MP4 preferred sorting honest without renaming a non-MP4 source as a converted file.</p>
+          <video controls preload="metadata" poster="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.jpg">
+            <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm" type="video/webm">
+          </video>
+          <a class="button secondary" href="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm">Open WebM source</a>
+        </article>
+
+        <article class="qa-card">
+          <h2>HLS playlist detection</h2>
+          <p>Expected: the extension lists this as M3U8/HLS when Chrome requests it. Download should require Original/M3U8, not MP4 conversion.</p>
+          <video controls preload="metadata">
+            <source src="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8" type="application/vnd.apple.mpegurl">
+          </video>
+          <a class="button primary" href="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8">Open public M3U8 playlist</a>
+        </article>
+
+        <article class="qa-card">
+          <h2>Non-video validation</h2>
+          <p>Expected: if a non-video URL is tested, the extension should not save HTML as MP4 and should show a clear non-video response message.</p>
+          <a class="button secondary" href="/privacy.html">Open non-video page</a>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <span>Easy Stream Save</span>
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </footer>
+  </body>
+</html>

@@ -143,6 +143,7 @@ Free inicial:
 - detectar MP4/WebM/M3U8/MPD cuando aparezcan en la pestana;
 - badge de cantidad detectada;
 - popup limpio;
+- boton para abrir la URL fuente detectada y diagnosticar previews/descargas fallidas;
 - descarga directa con `chrome.downloads`;
 - privacidad clara;
 - sin anuncios.

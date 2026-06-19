@@ -1,0 +1,11 @@
+{
+  "appName": {
+    "message": "Easy Stream Save"
+  },
+  "appDescription": {
+    "message": "Detecta videos y listas de streaming en la pagina actual, muestra previsualizaciones cuando esten disponibles y descarga medios sin anuncios invasivos."
+  },
+  "pageVideoName": {
+    "message": "Video de la pagina"
+  }
+}

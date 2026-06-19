@@ -10,29 +10,47 @@
       <img src="icons/icon-32.png" alt="" width="32" height="32">
       <div>
         <h1>Easy Stream Save</h1>
-        <p id="summary">Scanning this tab</p>
+        <p id="summary" data-i18n="summaryScanning">Scanning this tab</p>
       </div>
+      <label class="language-control" for="languageSelect">
+        <span data-i18n="languageLabel">Language</span>
+        <select id="languageSelect" aria-label="Language">
+          <option value="en">EN</option>
+          <option value="es">ES</option>
+        </select>
+      </label>
     </header>
 
     <main>
       <section class="notice" aria-label="Download limits">
-        <strong>YouTube downloads are not supported</strong>
-        <span>Chrome Web Store rules and protected streams can block some videos.</span>
+        <strong data-i18n="noticeTitle">YouTube downloads are not supported</strong>
+        <span data-i18n="noticeBody">Chrome Web Store rules and protected streams can block some videos.</span>
       </section>
       <section id="proNotice" class="pro-notice" aria-live="polite">
-        <strong>Free limit reached</strong>
-        <span>Pro Starter is planned at USD 1.99/month for higher limits and batch tools.</span>
+        <strong data-i18n="proTitle">Free limit reached</strong>
+        <span data-i18n="proBody">Free resets after 30 minutes. Pro Starter is planned at USD 1.99/month for unlimited downloads and advanced formats when available.</span>
+      </section>
+      <section class="format-panel" aria-label="Download format">
+        <label for="formatSelect">
+          <span data-i18n="formatLabel">Format</span>
+          <select id="formatSelect">
+            <option value="mp4">MP4</option>
+            <option value="original">Original</option>
+            <option value="webm">WebM</option>
+            <option value="m3u8">M3U8</option>
+          </select>
+        </label>
       </section>
       <div id="mediaList" class="media-list"></div>
       <div id="emptyState" class="empty">
-        <strong>No media detected yet</strong>
-        <span>Play the video or refresh the page, then check again.</span>
+        <strong data-i18n="emptyTitle">No media detected yet</strong>
+        <span data-i18n="emptyBody">Play the video or refresh the page, then check again.</span>
       </div>
     </main>
 
     <footer>
-      <button id="refreshButton" type="button">Refresh</button>
-      <button id="clearButton" type="button">Clear</button>
+      <button id="refreshButton" type="button" data-i18n="refresh">Refresh</button>
+      <button id="clearButton" type="button" data-i18n="clear">Clear</button>
     </footer>
 
     <script src="popup.js"></script>

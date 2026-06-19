@@ -1,0 +1,11 @@
+{
+  "appName": {
+    "message": "Easy Stream Save"
+  },
+  "appDescription": {
+    "message": "Detect videos and stream playlists on the current page, show previews when available, and download media without invasive ads."
+  },
+  "pageVideoName": {
+    "message": "Page video"
+  }
+}

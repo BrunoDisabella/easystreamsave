@@ -290,8 +290,125 @@ h3 {
   padding: 70px 28px;
 }
 
+.wide-page {
+  max-width: 1080px;
+}
+
+.compact-lead {
+  max-width: 760px;
+}
+
 .content-page h1 {
   font-size: 44px;
+}
+
+.pricing-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 40px;
+}
+
+.pricing-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: space-between;
+  padding: 26px;
+}
+
+.featured-plan {
+  border-color: var(--accent);
+  box-shadow: 0 18px 55px rgba(12, 143, 122, 0.14);
+}
+
+.plan-label {
+  color: var(--accent-dark);
+  font-size: 13px;
+  font-weight: 900;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+}
+
+.pricing-card h2 {
+  font-size: 40px;
+  margin: 0 0 12px;
+}
+
+.pricing-card h2 span {
+  color: var(--muted);
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.feature-list,
+.step-list {
+  color: var(--muted);
+  line-height: 1.7;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.feature-list li,
+.step-list li {
+  margin: 8px 0;
+}
+
+.full-button {
+  display: block;
+  text-align: center;
+}
+
+.notice-band {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  margin-top: 22px;
+  padding: 24px;
+}
+
+.notice-band a {
+  color: var(--accent-dark);
+  font-weight: 800;
+}
+
+.qa-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 34px;
+}
+
+.qa-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 22px;
+}
+
+.qa-card h2 {
+  font-size: 26px;
+}
+
+.qa-card video {
+  aspect-ratio: 16 / 9;
+  background: #17211f;
+  border-radius: 8px;
+  display: block;
+  margin: 18px 0;
+  width: 100%;
+}
+
+.qa-card .button {
+  display: inline-block;
+  margin-top: 8px;
+}
+
+.checkout-page {
+  min-height: calc(100vh - 180px);
 }
 
 footer {
@@ -317,7 +434,9 @@ footer span {
 
   .hero,
   .band,
-  .status-grid {
+  .status-grid,
+  .pricing-grid,
+  .qa-grid {
     grid-template-columns: 1fr;
   }
 

@@ -18,6 +18,8 @@ Antes de publicacion:
 Despues de publicacion:
 
 - Google Search Console.
+- GA4 en landing.
+- GA4 conectado a Chrome Web Store Developer Dashboard.
 - Chrome Web Store installs.
 - Activacion de extension.
 - Eventos locales/agregados sin tracking invasivo.
@@ -34,6 +36,21 @@ Regla:
 SEO organico necesita tiempo. No declarar una pagina ganadora o perdedora antes de 14-30 dias salvo error tecnico claro.
 
 ## Keyword Strategy
+
+Regla nueva:
+
+- Antes de crear mas paginas SEO, completar `KEYWORD_RESEARCH_PLAN.md` y luego `KEYWORD_RESEARCH.md`.
+- Si hay acceso a Google Ads/Keyword Planner, usar volumen real.
+- Si no hay acceso, usar SERP manual, autocomplete, Chrome Web Store reviews, WebExtension.net y senales de comunidad.
+- No perseguir keywords de YouTube/DRM que contradigan politicas o promesa honesta.
+
+Decision:
+
+- SEO web y Chrome Web Store SEO se trabajan juntos.
+- La web controla arquitectura, landings, articulos, comparativas, schema, Search Console y captacion fuera de la store.
+- Chrome Web Store SEO convierte busquedas internas en installs y debe repetir los claims principales por idioma.
+- WebExtension.net se usa para validar demanda/competencia dentro de Chrome Web Store antes de tocar titulo, descripcion y screenshots.
+- Cada pagina SEO nueva debe tener una keyword primaria, 3-8 secundarias, intencion, CTA y criterio de medicion.
 
 Prioridad inicial:
 
@@ -97,6 +114,18 @@ Cada experimento debe registrar:
 
 ## Experimentos Iniciales
 
+### SEO-002: Spanish Web Video Landing
+
+- Fecha inicio: 2026-06-19.
+- Area: SEO/multilenguaje.
+- Hipotesis: una landing en espanol para "descargar videos de paginas web" permite captar demanda long-tail hispana sin distraer el foco principal en ingles.
+- Cambio aplicado: `landing/es/index.html` con alternates `hreflang` EN/ES y sitemap actualizado.
+- Metrica primaria: impresiones organicas en Search Console para queries en espanol.
+- Metrica secundaria: clicks desde `/es/` hacia pricing, limites o Chrome Web Store cuando exista.
+- Ventana minima: 30 dias desde indexacion.
+- Resultado: pendiente.
+- Decision: pendiente.
+
 ### SEO-001: Honest Limit Page
 
 - Fecha inicio: 2026-06-19.
@@ -135,6 +164,22 @@ Cada experimento debe registrar:
   - Product Hunt cuando el MVP sea estable.
   - Tutoriales cortos con capturas.
   - Paginas comparativas SEO.
+
+## Setup Produccion SEO/Metricas
+
+- Verificar dominio en Search Console.
+- Enviar `sitemap.xml`.
+- Crear propiedad GA4 para `easystreamsave.com`.
+- Agregar GA4 a landing con cookie/tracking minimalista y politica actualizada.
+- Conectar GA4 en Chrome Web Store Developer Dashboard tras publicar.
+- Crear dashboard simple semanal:
+  - impresiones Search Console;
+  - clicks organicos;
+  - CTR;
+  - installs Chrome Store;
+  - clics a install desde landing;
+  - limite Free alcanzado;
+  - conversion Pro.
 
 ## Criterio para el Agente
 
