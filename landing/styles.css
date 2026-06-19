@@ -432,6 +432,34 @@ h3 {
   font-weight: 800;
 }
 
+.download-steps {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 34px;
+}
+
+.download-steps article {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 22px;
+}
+
+.step-number {
+  align-items: center;
+  background: #e7fbfa;
+  border: 1px solid #bdeeed;
+  border-radius: 999px;
+  color: var(--accent-dark);
+  display: inline-flex;
+  font-weight: 900;
+  height: 34px;
+  justify-content: center;
+  margin-bottom: 14px;
+  width: 34px;
+}
+
 .architecture-grid {
   display: grid;
   gap: 14px;
@@ -567,6 +595,7 @@ footer span {
   .band,
   .status-grid,
   .pricing-grid,
+  .download-steps,
   .architecture-grid,
   .qa-grid {
     grid-template-columns: 1fr;

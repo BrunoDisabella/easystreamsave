@@ -23,6 +23,18 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://easystreamsave.com/es/pricing/"/>
   </url>
   <url>
+    <loc>https://easystreamsave.com/download/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://easystreamsave.com/download/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://easystreamsave.com/es/download/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://easystreamsave.com/download/"/>
+  </url>
+  <url>
+    <loc>https://easystreamsave.com/es/download/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://easystreamsave.com/download/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://easystreamsave.com/es/download/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://easystreamsave.com/download/"/>
+  </url>
+  <url>
     <loc>https://easystreamsave.com/privacy/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://easystreamsave.com/privacy/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://easystreamsave.com/es/privacy/"/>
