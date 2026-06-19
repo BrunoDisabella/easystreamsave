@@ -39,7 +39,7 @@ SEO organico necesita tiempo. No declarar una pagina ganadora o perdedora antes 
 
 Regla nueva:
 
-- Antes de crear mas paginas SEO, completar `KEYWORD_RESEARCH_PLAN.md` y luego `KEYWORD_RESEARCH.md`.
+- Antes de crear mas paginas SEO, usar `KEYWORD_RESEARCH_EXPERT_2026.md` como fuente principal.
 - Si hay acceso a Google Ads/Keyword Planner, usar volumen real.
 - Si no hay acceso, usar SERP manual, autocomplete, Chrome Web Store reviews, WebExtension.net y senales de comunidad.
 - No perseguir keywords de YouTube/DRM que contradigan politicas o promesa honesta.
@@ -54,10 +54,10 @@ Decision:
 
 Prioridad inicial:
 
-1. Long-tail con intencion clara y baja competencia.
-2. Comparativas contra competidores cargados/ruidosos.
-3. Problemas especificos de HLS/M3U8.
-4. Privacidad y ausencia de ads.
+1. Home EN y `/es/` alineadas a money keywords principales.
+2. Problemas especificos de HLS/M3U8: `/m3u8-downloader-chrome/`.
+3. Privacidad y ausencia de ads: `/chrome-video-downloader-without-ads/`.
+4. Comparativas contra competidores cargados/ruidosos: `/video-downloadhelper-alternative/`.
 5. Limites honestos: DRM, protected video, why downloaders fail.
 
 Clusters iniciales:

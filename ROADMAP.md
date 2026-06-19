@@ -63,7 +63,7 @@ Tareas:
 - [x] Crear `/pricing/`, `/checkout/success/` y `/checkout/cancel/` como paginas listas para Paddle.
 - [ ] Resolver `www.easystreamsave.com`: reemplazar registro viejo de Hostinger por CNAME a `easystreamsave.pages.dev`.
 - [ ] Completar/verificar estado ICANN/email del dominio en Hostinger para evitar suspension futura.
-- [ ] Preparar verificacion Search Console.
+- [x] Verificar Search Console como `sc-domain:easystreamsave.com` via Maton.
 
 ## Fase 2 - Extension MVP Local
 
@@ -145,19 +145,20 @@ Captar trafico organico con paginas en ingles.
 
 Tareas:
 
-- [ ] Search Console.
+- [x] Search Console.
 - [ ] GA4 landing.
 - [ ] GA4 Chrome Web Store.
 - [x] Sistema de experimentos SEO/crecimiento.
-- [ ] Crear analisis de palabras clave antes de publicar nuevos articulos.
-- [ ] Evaluar Google Ads MCP / Keyword Planner para volumen real.
+- [x] Crear analisis de palabras clave antes de publicar nuevos articulos.
+- [x] Evaluar Google Ads MCP / Keyword Planner para volumen real.
 - [x] Crear `KEYWORD_RESEARCH.md` con clusters EN/ES y metodo de priorizacion.
+- [x] Crear `KEYWORD_RESEARCH_EXPERT_2026.md` con datos reales de Keyword Planner, sin keywords inventadas.
 - [x] Incorporar WebExtension.net / Chrome Web Store Keyword Research Tool como fuente especifica para CWS SEO.
 - [ ] Articulo "Cococut alternative without ads".
-- [ ] Articulo "Chrome video downloader without ads".
-- [ ] Articulo "HLS and M3U8 downloader for Chrome".
+- [x] Articulo "Chrome video downloader without ads".
+- [x] Articulo "HLS and M3U8 downloader for Chrome".
 - [ ] Articulo "Download web videos privately".
-- [ ] Crear landing en espanol: "descargar videos de paginas web".
+- [x] Crear landing en espanol: "descargar videos de paginas web".
 - [ ] Crear 3 videos tutoriales IA: Chrome web video, TikTok/web source, por que algunos videos no se pueden descargar.
 - [ ] Investigar reviews de Chrome Web Store para detectar que valoran/odian los usuarios.
 - [ ] Medir impresiones/clicks.

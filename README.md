@@ -20,6 +20,8 @@ Production MVP direction:
 - `ROADMAP.md`: execution roadmap and KPIs.
 - `WORKLOG.md`: chronological project log.
 - `AGENT_BRIEF.md`: autonomous agent instructions.
+- `KEYWORD_RESEARCH_EXPERT_2026.md`: expert SEO/CWS keyword research with Google Ads volumes, clusters, priorities, and page architecture.
+- `KEYWORD_RESEARCH.md`: base keyword research notes and Google/Maton access status.
 - `MANUAL_TEST_PLAN.md`: local Chrome QA checklist for the extension MVP.
 - `CHROME_STORE_LISTING.md`: draft Chrome Web Store listing copy, privacy notes, keywords, and screenshot checklist.
 - `CWS_SUBMISSION_PACKAGE.md`: one-file Chrome Web Store submission pack with permission justifications and privacy questionnaire draft.

@@ -11,25 +11,31 @@ Hay que trabajar dos superficies:
 
 La ficha de Chrome Web Store sola no alcanza. Nos puede traer installs, pero no nos da una arquitectura SEO completa ni el mismo control de contenido, comparativas, schema, Search Console y landings por idioma.
 
+Research experto completo:
+
+- Ver `KEYWORD_RESEARCH_EXPERT_2026.md` para metodologia, volumen real Google Ads, clusters, arquitectura de paginas, Chrome Web Store SEO, keywords negativas y prioridades.
+
 ## Acceso a Datos
 
 Estado actual:
 
 - Maton tiene `google-search-console`, `google-analytics-admin`, `google-analytics-data` y `google-ads` como apps soportadas.
-- Search Console via Maton responde, pero `easystreamsave.com` no esta verificado para la cuenta conectada:
-  - `https://easystreamsave.com/`: 404, no verified Search Console site.
-  - `sc-domain:easystreamsave.com`: 404, no verified Search Console site.
+- Search Console via Maton esta operativo:
+  - `google-search-console/webmasters/v3/sites` devuelve `sc-domain:easystreamsave.com` con `permissionLevel=siteOwner`.
+  - `searchAnalytics/query` para `sc-domain:easystreamsave.com` responde 200; todavia sin filas utiles por dominio nuevo.
+  - `sitemaps` responde 200, pero aun devuelve `{}`.
 - Google Analytics Admin via Maton responde `{}`: no hay cuentas/propiedades GA4 visibles para la cuenta conectada.
-- Google Ads via Maton responde en versiones actuales, pero la cuenta OAuth conectada devuelve `NOT_ADS_USER`: no esta asociada a una cuenta Google Ads.
+- Google Ads via Maton esta operativo para Keyword Planner:
+  - `google-ads/v22/customers:listAccessibleCustomers` devuelve `customers/1808022852`.
+  - `KeywordPlanIdeaService.GenerateKeywordIdeas` responde 200 con volumen, competencia y CPC aproximado.
 - WebExtension.net / Chrome Web Store Keyword Research Tool es util para SEO interno de Chrome Web Store: permite analizar keywords por cantidad de extensiones, usuarios, rating, reviews y fecha de tracking.
 
 Conclusion:
 
-- Puedo hacer buen keyword research inicial con SERP, competidores, autocomplete, reviews y clusters.
-- Para volumen/CPC/dificultad real falta que Bruno conecte o cree Google Ads con la cuenta OAuth usada por Maton, o usar Ahrefs, Semrush, DataForSEO o similar.
-- Para Search Console falta verificar `easystreamsave.com` como propiedad de dominio o URL-prefix.
+- Ya se puede hacer keyword research real con Google Ads/Keyword Planner via Maton.
+- Search Console ya esta conectado para medir impresiones/clicks cuando Google empiece a registrar datos.
 - Para Analytics falta crear/conectar una propiedad GA4 de `easystreamsave.com` y luego exponerla a la cuenta OAuth de Maton.
-- Cuando Bruno habilite Google Ads, exportar los resultados a Google Sheets sirve para que Maton/Sheets los lea y el agente priorice.
+- Exportar resultados a Google Sheets puede servir para que Maton/Sheets los lea y el agente priorice, pero ya no bloquea el research inicial.
 - Para Chrome Web Store, usar WebExtension.net como fuente especifica de tienda junto con busqueda manual en CWS, reviews de competidores y Chrome-Stats/Extension Ranker si hace falta.
 
 ## Maton / Google Setup Pendiente
@@ -37,17 +43,16 @@ Conclusion:
 Para habilitar keyword research real con datos:
 
 1. Search Console:
-   - Agregar propiedad `sc-domain:easystreamsave.com`.
-   - Verificar con TXT DNS en Cloudflare.
-   - Reintentar `google-search-console/webmasters/v3/sites`.
+   - Listo: propiedad `sc-domain:easystreamsave.com` verificada y visible via Maton.
+   - Pendiente: enviar sitemap si no aparece automaticamente y esperar datos reales de impresiones/clicks.
 2. Google Analytics:
    - Crear propiedad GA4 para `easystreamsave.com`.
    - Instalar tag en landing solo si aceptamos medir page views/clicks y actualizar Privacy Policy si corresponde.
    - Reintentar `google-analytics-admin/v1beta/accountSummaries`.
 3. Google Ads:
-   - Crear o vincular cuenta Ads a la misma cuenta Google OAuth usada por Maton.
-   - Confirmar acceso a Keyword Planner.
-   - Reintentar Google Ads API actual (`v21`/`v22`) y luego `KeywordPlanIdeaService.GenerateKeywordIdeas`.
+   - Listo: customer visible `customers/1808022852`.
+   - Listo: `KeywordPlanIdeaService.GenerateKeywordIdeas` funciona via `google-ads/v22`.
+   - Listo: batch EN/ES ejecutado y sintetizado en `KEYWORD_RESEARCH_EXPERT_2026.md`.
 
 Fuentes oficiales verificadas:
 

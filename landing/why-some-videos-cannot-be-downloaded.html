@@ -8,6 +8,38 @@
     <link rel="canonical" href="https://easystreamsave.com/why-some-videos-cannot-be-downloaded.html">
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/styles.css">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Why does a Chrome video downloader not detect every video?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Some pages use DRM, encrypted streams, temporary signed URLs, blob playback, or private platform rules. Easy Stream Save detects browser-accessible media resources but does not bypass protections."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can Easy Stream Save download DRM protected videos?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Easy Stream Save does not bypass DRM, encryption, login restrictions, or platform access controls."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can M3U8 or HLS videos be downloaded?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Supported HLS and M3U8 streams may be detected when the playlist is available to Chrome. Encrypted playlists, live streams, or complex protected streams may not download correctly."
+            }
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <header class="site-header">
@@ -17,7 +49,7 @@
     <main class="content-page">
       <p class="eyebrow">Video download limits</p>
       <h1>Why some videos cannot be downloaded</h1>
-      <p>Browser video downloaders can detect many direct media files and stream playlists, but they cannot honestly save everything on the web.</p>
+      <p>Browser video downloaders can detect many direct media files and stream playlists, but they cannot honestly save everything on the web. This page exists to set the right expectation before you install any Chrome video downloader extension.</p>
       <h2>DRM and encrypted streams</h2>
       <p>Some platforms use DRM or encrypted media extensions to protect playback. Easy Stream Save does not bypass these protections.</p>
       <h2>Platform restrictions</h2>
@@ -26,6 +58,18 @@
       <p>Media URLs can expire quickly, require cookies, or work only inside the original session.</p>
       <h2>What the extension focuses on</h2>
       <p>The goal is to detect available MP4, WebM, M3U8, and MPD resources clearly, then explain limits when a video is protected or unavailable.</p>
+      <h2>FAQ</h2>
+      <h3>Why does a Chrome video downloader not detect every video?</h3>
+      <p>Some players hide media behind blob playback, encrypted streams, login checks, or short-lived signed URLs. If Chrome cannot access a stable media resource, a downloader extension may not be able to save it.</p>
+      <h3>Does Easy Stream Save bypass DRM?</h3>
+      <p>No. Easy Stream Save does not bypass DRM, encryption, access controls, or private platform restrictions.</p>
+      <h3>What about M3U8 and HLS streams?</h3>
+      <p>Easy Stream Save can detect supported HLS/M3U8 playlists when the page exposes them to Chrome. Encrypted playlists, complex live streams, or protected streams can still fail.</p>
+      <div class="legal-links">
+        <a href="/m3u8-downloader-chrome/">M3U8 downloader for Chrome</a>
+        <a href="/chrome-video-downloader-without-ads/">Video downloader without ads</a>
+        <a href="/">Back to Easy Stream Save</a>
+      </div>
     </main>
   </body>
 </html>

@@ -535,3 +535,49 @@ Revisar extension cargada manualmente en Chrome y preparar deploy de landing en 
   - keyword research inicial sin volumen;
   - seeds para Google Ads API/Keyword Planner cuando haya cuenta Ads conectada.
 - Marta/OpenClaw lab: se verifico que el lab tiene `OPENAI_API_KEY` seteada en `.env`; no esta igual que Marcela si el objetivo es usar OAuth compartido. No se cambio auth sin confirmacion.
+
+# 2026-06-19 - Maton Google access re-check
+
+- Uso GPT-5.5.
+- Bruno pidio revisar si ya habia acceso a Google Ads y Search Console via Maton.
+- Resultado actualizado:
+  - Search Console OK: `webmasters/v3/sites` devuelve `sc-domain:easystreamsave.com` con `permissionLevel=siteOwner`.
+  - Search Console Analytics OK tecnicamente: `searchAnalytics/query` responde 200, todavia sin filas utiles por dominio nuevo.
+  - Search Console Sitemaps OK tecnicamente: `sitemaps` responde 200, pero devuelve `{}`.
+  - Google Ads OK: `google-ads/v22/customers:listAccessibleCustomers` devuelve `customers/1808022852`.
+  - Keyword Planner OK: `customers/1808022852:generateKeywordIdeas` responde 200 con volumen, competencia y CPC aproximado para seed `chrome video downloader`.
+  - Analytics Admin sigue sin propiedades visibles: `accountSummaries` devuelve `{}`.
+- Se actualizo `KEYWORD_RESEARCH.md` para quitar el bloqueo viejo de Search Console/Ads y dejar Analytics como unico acceso Google pendiente.
+
+# 2026-06-19 - Expert keyword research 2026
+
+- Uso GPT-5.5.
+- Bruno pidio estudiar 3 videos de keyword research antes de hacer el research experto:
+  - Metics Media: `Keyword Research for SEO in 2026: Step-by-Step Tutorial`.
+  - Sergio Canales SEO: `Como HACER un KEYWORD RESEARCH Desde 0 - CLASE 1`.
+  - Romuald Fons: `Como encontrar y categorizar palabras clave SEO para tu web`.
+- Limitacion: YouTube bloqueo transcripts desde IP cloud; se confirmaron titulos/autores via oEmbed y se contrasto metodologia con fuentes publicas/resumen web. No se usaron cookies.
+- Se ejecuto Keyword Planner via Maton para seeds EN/ES globales sin geo target.
+- Se creo `KEYWORD_RESEARCH_EXPERT_2026.md` con:
+  - metodologia aplicada;
+  - snapshot de datos reales Google Ads;
+  - keywords EN/ES relevantes con volumen, competencia y CPC;
+  - keywords negativas/riesgosas;
+  - arquitectura SEO propuesta;
+  - Chrome Web Store SEO;
+  - priorizacion de contenido y medicion.
+- Se actualizo `README.md` y `KEYWORD_RESEARCH.md` para apuntar al research experto como fuente principal.
+
+# 2026-06-19 - SEO production pages from Keyword Planner
+
+- Uso GPT-5.5.
+- Bruno pidio dejar listos para produccion los puntos SEO y usar Google Keyword Planner como fuente real para no inventar palabras clave.
+- Se ajusto la home EN para `chrome video downloader`, `video downloader extension` y `web video downloader`.
+- Se ajusto `/es/` para `descargar videos de paginas web`, `descargador de videos chrome` y `extension para descargar videos chrome`.
+- Se amplio `why-some-videos-cannot-be-downloaded.html` con FAQ visible y JSON-LD FAQPage.
+- Se crearon paginas SEO basadas en keywords reales:
+  - `/m3u8-downloader-chrome/`
+  - `/chrome-video-downloader-without-ads/`
+  - `/video-downloadhelper-alternative/`
+- Se actualizo `sitemap.xml`, `CHROME_STORE_LISTING.md` y `ROADMAP.md`.
+- Regla aplicada: no crear paginas para keywords toxicas o de promesa falsa aunque tengan volumen, como YouTube/DRM/universal/private platform.
