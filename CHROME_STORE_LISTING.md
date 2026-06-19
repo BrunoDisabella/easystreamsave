@@ -6,7 +6,7 @@ Status: draft for MVP submission. Do not publish until manual QA, screenshots, a
 
 ## Positioning
 
-Easy Stream Save is a clean Chrome extension for detecting downloadable video resources on the current page. It focuses on honest detection, useful previews, and simple downloads for direct media files and public stream playlists.
+Easy Stream Save is a clean Chrome extension for detecting browser-accessible media resources on the current page. It focuses on honest detection, useful previews, and simple downloads for media the user owns or is authorized to save, including direct media files and visible public stream playlists when technically available.
 
 Do not claim:
 
@@ -20,11 +20,11 @@ Do not claim:
 
 ### Short Description
 
-Clean Chrome video downloader for available web videos, direct files, and supported M3U8/HLS streams.
+Clean Chrome media downloader for authorized web videos, direct files, and supported M3U8/HLS streams.
 
 ### Long Description
 
-Easy Stream Save is a clean Chrome video downloader extension that helps you find video resources already available to your browser on the current page.
+Easy Stream Save is a clean Chrome media downloader extension that helps you find video resources already available to your browser on the current page. Use it only for content you own, have permission to save, or are otherwise authorized to download.
 
 The extension detects direct video files and common stream playlist formats, shows a clear list in the popup, and lets you download direct media files with Chrome's built-in download flow. When the browser can load the media metadata, Easy Stream Save also shows a preview or thumbnail so you can identify the right file faster.
 
@@ -36,6 +36,7 @@ What it can help with:
 - Keep detected media separated by browser tab.
 - Clear the current tab's detected list at any time.
 - Keep downloads user-initiated through Chrome's native download flow.
+- Copy detected media URLs for troubleshooting or personal workflow.
 
 Important limitations:
 
@@ -52,11 +53,11 @@ Easy Stream Save is designed to work locally in your browser. It does not show i
 
 ### Short Description
 
-Descargador de videos Chrome limpio para videos disponibles, archivos directos y streams M3U8/HLS compatibles.
+Descargador Chrome limpio para videos autorizados, archivos directos y streams M3U8/HLS compatibles.
 
 ### Long Description
 
-Easy Stream Save es una extension para descargar videos en Chrome que te ayuda a encontrar recursos de video ya disponibles para tu navegador en la pagina actual.
+Easy Stream Save es una extension para descargar medios en Chrome que te ayuda a encontrar recursos de video ya disponibles para tu navegador en la pagina actual. Usala solo con contenido propio, con permiso o autorizado para descarga.
 
 La extension detecta archivos de video directos y formatos comunes de playlists de streaming, muestra una lista clara en el popup y permite descargar archivos directos usando el flujo nativo de descargas de Chrome. Cuando el navegador puede cargar metadata, Easy Stream Save tambien muestra una preview o miniatura para identificar mas rapido el archivo correcto.
 
@@ -68,6 +69,7 @@ Puede ayudarte a:
 - Separar los medios detectados por pestana.
 - Limpiar la lista detectada de la pestana actual.
 - Mantener las descargas iniciadas por el usuario con el flujo nativo de Chrome.
+- Copiar URLs detectadas para diagnostico o flujo personal.
 
 Limitaciones importantes:
 

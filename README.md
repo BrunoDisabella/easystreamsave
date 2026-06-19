@@ -1,6 +1,6 @@
 # Easy Stream Save
 
-Clean Chrome extension and SEO landing for detecting downloadable web video resources.
+Clean Chrome extension and SEO landing for detecting browser-accessible media resources the user owns or is authorized to save.
 
 Production MVP direction:
 
@@ -22,6 +22,7 @@ Production MVP direction:
 - `AGENT_BRIEF.md`: autonomous agent instructions.
 - `KEYWORD_RESEARCH_EXPERT_2026.md`: expert SEO/CWS keyword research with Google Ads volumes, clusters, priorities, and page architecture.
 - `KEYWORD_RESEARCH.md`: base keyword research notes and Google/Maton access status.
+- `GOOGLE_ADS_PLAN.md`: Search campaign structure, Keyword Planner findings, negatives, and launch guardrails.
 - `MANUAL_TEST_PLAN.md`: local Chrome QA checklist for the extension MVP.
 - `CHROME_STORE_LISTING.md`: draft Chrome Web Store listing copy, privacy notes, keywords, and screenshot checklist.
 - `CWS_SUBMISSION_PACKAGE.md`: one-file Chrome Web Store submission pack with permission justifications and privacy questionnaire draft.

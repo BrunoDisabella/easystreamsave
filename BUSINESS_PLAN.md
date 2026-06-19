@@ -21,6 +21,27 @@ El roadmap debe mantenerse como herramienta profesional: objetivos medibles, KPI
 
 Crear una extension Chrome en ingles, con marca separada de Bruno/Los Gurises, para detectar y descargar videos/streams disponibles en la pagina actual. El diferencial sera una experiencia limpia, sin ads invasivos, privacidad clara y promesas honestas.
 
+## Tesis de Producto y Compliance
+
+Decision 2026-06-19:
+
+No construir "otro clon generico de CocoCut". Easy Stream Save se posiciona como una extension privada, simple y confiable para guardar medios descargables, propios o autorizados que ya estan disponibles para el navegador.
+
+Promesa permitida:
+
+> Detect and save browser-accessible media you own or are authorized to download. Supports direct MP4/WebM files and visible HLS/M3U8 streams when technically available.
+
+Reglas innegociables de producto y copy:
+
+- No prometer "download any video".
+- No prometer YouTube downloader.
+- No prometer videos privados, pagos, protegidos o detras de login.
+- No prometer bypass de DRM, paywalls, CORS, firmas temporales o restricciones de plataforma.
+- No usar marcas de terceros como si Easy Stream Save fuera oficial.
+- Cada pagina SEO de plataforma debe hablar de contenido publico/browser-accessible/autorizado y debe existir QA real antes de publicarla.
+
+El diferencial competitivo no es ser mas agresivos: es ser mas confiables, mas limpios, mas privados y explicar mejor los limites.
+
 ## Mercado
 
 El mercado correcto inicial es global e ingles:
@@ -144,18 +165,24 @@ Free inicial:
 - badge de cantidad detectada;
 - popup limpio;
 - descarga directa con `chrome.downloads`;
+- copiar URL detectada;
+- mostrar formato, fuente, tipo y calidad/tamano estimado cuando se pueda inferir;
 - preview cuando Chrome y el servidor permiten cargar el medio o poster;
+- aviso claro de uso autorizado;
 - mensajes claros cuando una fuente es stream, blob, URL firmada, CORS o protegida;
 - privacidad clara;
 - sin anuncios.
 
 Pro posterior:
 
-- HLS avanzado;
 - batch download;
+- cola de descargas;
+- HLS/M3U8 avanzado y union local a MP4 solo cuando sea tecnicamente estable;
+- subtitulos cuando esten disponibles y el uso este permitido;
 - historial extendido;
 - nombres inteligentes;
-- cola de descargas;
+- carpeta/preferencias cuando Chrome lo permita;
+- reintentos;
 - merge/conversion cuando sea tecnicamente estable.
 
 No se promete:
@@ -169,9 +196,9 @@ No se promete:
 Modelo recomendado:
 
 - Free real para ganar confianza e instalaciones.
-- Pro lifetime early adopter: USD 19.
-- Pro lifetime normal: USD 29-39.
-- Suscripcion solo si hay features cloud/costos recurrentes.
+- Pro Starter: USD 1.99/mes como precio inicial definido por Bruno.
+- Pro anual: USD 19/anio cuando haya retencion probada.
+- Lifetime early adopter: evaluar USD 39 mas adelante, no como foco del MVP.
 - Ads solo en web/blog si hay trafico SEO; no dentro de la extension.
 
 Dato clave:
@@ -281,10 +308,10 @@ Decision 2026-06-19:
 Decision 2026-06-19:
 
 - Free real al lanzamiento.
-- Pro early adopter lifetime: USD 19.
-- Pro lifetime normal: USD 29.
-- Evaluar USD 39 solo con features Pro fuertes y estables.
-- No usar suscripcion USD 19 mensual al inicio: caro frente a competencia y dificil de justificar.
+- Pro Starter: USD 1.99/mes.
+- Pro anual futuro: USD 19/anio.
+- Lifetime early adopter futuro: USD 39 solo si necesitamos caja/validacion rapida.
+- No endurecer paywall el dia uno: primero conseguir uso, reseñas y bugs reales.
 - No usar ads dentro de la extension.
 
 ## Proximos Pasos Inmediatos

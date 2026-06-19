@@ -154,6 +154,7 @@ Tareas:
 - [x] Evaluar Google Ads MCP / Keyword Planner para volumen real.
 - [x] Crear `KEYWORD_RESEARCH.md` con clusters EN/ES y metodo de priorizacion.
 - [x] Crear `KEYWORD_RESEARCH_EXPERT_2026.md` con datos reales de Keyword Planner, sin keywords inventadas.
+- [x] Crear `GOOGLE_ADS_PLAN.md` con estructura Search, ad groups, negativos y decision de no activar gasto aun.
 - [x] Incorporar WebExtension.net / Chrome Web Store Keyword Research Tool como fuente especifica para CWS SEO.
 - [ ] Articulo "Cococut alternative without ads".
 - [x] Articulo "Chrome video downloader without ads".
@@ -168,6 +169,8 @@ Tareas:
 - [ ] Investigar reviews de Chrome Web Store para detectar que valoran/odian los usuarios.
 - [ ] Medir impresiones/clicks.
 - [ ] Ajustar copy de Chrome Store con queries reales.
+- [ ] Activar medicion minima antes de cualquier campana paga.
+- [ ] Crear campana Search solo con aprobacion explicita de presupuesto.
 
 KPIs iniciales:
 
@@ -192,6 +195,7 @@ Tareas:
 - [x] Definir hipotesis MVP: Free limitado + Pro Starter USD 1.99/mes.
 - [ ] Validar Paddle vs Stripe como plataforma de pago optima.
 - [x] Definir Paddle como opcion recomendada para MVP global.
+- [x] Incorporar decision de Bruno: mantener Pro Starter en USD 1.99/mes para el MVP.
 - [x] Implementar limite Free local MVP: 10 descargas cada 30 minutos, sin bloquear preview/deteccion.
 - [ ] Implementar pantalla Pro local al alcanzar limite.
 - [ ] Crear backend minimo de licencias: email/customer id, estado, vencimiento, provider.
@@ -200,9 +204,9 @@ Tareas:
 - [x] Definir selector Free inicial de formato preferido sin prometer conversion cuando la fuente no exista.
 - [ ] Definir selector de formato/calidad Pro con conversion/merge real sin prometer 1080p/4K cuando la fuente no exista.
 - [ ] Implementar licencia simple.
-- [ ] Early adopter lifetime USD 19.
-- [ ] Precio normal lifetime USD 29-39.
-- [ ] Evaluar suscripcion solo si hay features cloud/costos recurrentes.
+- [ ] Evaluar Pro anual USD 19 cuando haya retencion probada.
+- [ ] Evaluar lifetime USD 39 solo si necesitamos caja/validacion rapida.
+- [ ] Revisar si USD 1.99/mes cubre soporte/comisiones luego de 30-60 dias de uso real.
 
 ## Fase 6 - Procesos Profesionales
 
@@ -223,16 +227,13 @@ Tareas:
 
 ## Proxima Tarea Recomendada
 
-Pausado por Bruno: no seguir ahora con dominio/Cloudflare.
+Prioridad actual:
 
-Estado a retomar:
-
-- `https://easystreamsave.com` abre la landing en Cloudflare Pages.
-- `https://www.easystreamsave.com` seguia apuntando a Hostinger (`2.57.91.93`) por registro DNS viejo.
-- Pendiente en Cloudflare DNS: dejar `www` como CNAME hacia `easystreamsave.pages.dev`, proxy activado.
-- Pendiente en Hostinger: verificar email ICANN/registrante si aparece alerta de suspension.
-
-Mientras eso queda pausado, la proxima tarea interna recomendada es probar el nuevo MVP con preview/Open en Chrome, anotar sitios donde el preview no cargue por CORS/headers y preparar screenshots para Chrome Web Store.
+1. QA Vimeo publico/embed para decidir si se crea `/vimeo-downloader-chrome/`.
+2. Capturar screenshots reales para Chrome Web Store.
+3. Completar privacy questionnaire de Chrome Web Store.
+4. Publicar beta/listing cuando QA y assets esten completos.
+5. Recien despues activar medicion minima y pedir aprobacion de presupuesto para Google Ads.
 
 ## Tareas Para Proximos Crons/Agente Autonomo
 

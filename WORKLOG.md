@@ -611,3 +611,27 @@ Revisar extension cargada manualmente en Chrome y preparar deploy de landing en 
   - `download vimeo chrome extension` 1000 avg/mo.
 - Decision: `web video downloader` queda como keyword de home/CWS, no como foco inicial de pagina. Proxima oportunidad SEO real: QA Vimeo publico/embed y, si pasa, crear `/vimeo-downloader-chrome/` con limites claros.
 - Se actualizo `KEYWORD_RESEARCH_EXPERT_2026.md`, `SEO_AND_GROWTH.md` y `ROADMAP.md` con estrategia por capas, clusters ampliados y regla de no publicar platform-tail sin QA/politica.
+
+# 2026-06-19 - Product/Ads plan from external review
+
+- Uso GPT-5.5.
+- Bruno compartio feedback de un colega y pidio enviar la ultima version por Telegram y crear un plan en Google Ads/planificador.
+- ZIP enviado por Telegram a `telegram:1879196757`: `easy-stream-save-extension-0.1.15-tested.zip`, messageId `19798`.
+- Se reviso Google Ads:
+  - cuenta accesible: `customers/1808022852`;
+  - no hay campanas visibles en la cuenta;
+  - se intentaron 3 forecasts no mutantes con `GenerateKeywordForecastMetrics`; Maton/REST rechazo campos de targeting/forecast, se freno en el tercer fallo.
+- Decision: no crear campanas ni presupuesto real sin aprobacion explicita de Bruno.
+- Nuevo archivo `GOOGLE_ADS_PLAN.md`:
+  - estructura de campana Search futura;
+  - ad groups HLS/M3U8, Vimeo publico, alternatives y clean/no ads;
+  - keywords y volumen de Keyword Planner;
+  - negativos de riesgo legal/plataforma;
+  - copy base compliant;
+  - orden correcto antes de gastar.
+- Se incorporo feedback estrategico en docs:
+  - no competir como clon generico de CocoCut;
+  - posicionamiento privacy-first para medios propios/autorizados/browser-accessible;
+  - no prometer YouTube, DRM, privado, paywall ni "download any video";
+  - Pro Starter queda en USD 1.99/mes;
+  - anual USD 19/lifetime USD 39 quedan como opciones futuras, no foco MVP.

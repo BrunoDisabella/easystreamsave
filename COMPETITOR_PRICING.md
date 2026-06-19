@@ -4,7 +4,7 @@ Ultima actualizacion: 2026-06-19
 
 ## Resumen
 
-El mercado mezcla free, lifetime, suscripcion y ads. Para Easy Stream Save conviene entrar con Free real + lifetime accesible, no suscripcion cara desde el dia 1.
+El mercado mezcla free, lifetime, suscripcion y ads. Para Easy Stream Save la decision actual es entrar con Free real + Pro Starter USD 1.99/mes. Lifetime queda como opcion futura, no como pricing principal del MVP.
 
 ## Datos Observados
 
@@ -42,20 +42,21 @@ Nuestra diferenciacion no puede ser solo "detecta m3u8"; necesitamos UX, confian
 - Tambien aparecen productos lifetime mas caros para apps desktop/all-in-one.
 
 Implicacion:
-USD 49 lifetime puede existir, pero para entrar sin reputacion es agresivo. USD 19-29 es mas razonable al inicio.
+USD 49 lifetime puede existir, pero para entrar sin reputacion es agresivo. Si se usa lifetime mas adelante, USD 39 early adopter es mas coherente que quemar valor en USD 19.
 
 ## Pricing Recomendado
 
 Lanzamiento:
 
 - Free: deteccion y descargas basicas reales.
-- Pro early adopter lifetime: USD 19.
-- Pro normal lifetime: USD 29.
-- Subir a USD 39 solo cuando haya HLS avanzado/batch/historial estable.
+- Pro Starter mensual: USD 1.99.
+- Pro anual futuro: USD 19 cuando haya retencion probada.
+- Lifetime futuro: evaluar USD 39 solo si necesitamos caja/validacion rapida.
 
 Evitar al inicio:
 
 - Suscripcion mensual USD 19: caro contra competencia y dificil de justificar.
+- Lifetime barato como foco principal: reduce margen antes de conocer retencion y soporte.
 - Ads dentro de extension: mala experiencia y mas riesgo de politicas.
 - Free inutil: destruye confianza y reviews.
 

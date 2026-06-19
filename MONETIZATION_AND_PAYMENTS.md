@@ -8,10 +8,12 @@ Modelo MVP:
 
 - Free: suficientemente util para generar confianza.
 - Pro Starter: USD 1.99/mes.
-- Pro Annual: USD 14.99-19.99/anio cuando haya retencion probada.
-- Lifetime early adopter: evaluar USD 19 solo si necesitamos caja/validacion rapida.
+- Pro Annual: USD 19/anio cuando haya retencion probada.
+- Lifetime early adopter: evaluar USD 39 solo si necesitamos caja/validacion rapida.
 
 No conviene que el Free sea inutil. La competencia promete mucho gratis; si bloqueamos demasiado temprano, perdemos confianza antes de demostrar valor.
+
+Decision de Bruno 2026-06-19: mantener precio inicial Pro en USD 1.99/mes. No subirlo en el MVP.
 
 ## Free vs Pro
 
@@ -35,12 +37,15 @@ Pro USD 1.99/mes:
 
 - Descargas ilimitadas razonables.
 - Batch download.
+- Cola de descargas.
 - Historial local.
 - Nombres de archivo mejores.
 - HLS/M3U8 avanzado cuando este implementado.
+- Union local de segmentos HLS/M3U8 a MP4 solo si es estable y permitido por la fuente.
+- Descarga de subtitulos cuando esten disponibles y autorizados.
 - Selector de formato/calidad cuando el sitio exponga varias fuentes.
 - Calidad 1080p/4K solo si la fuente real existe; no prometer upscale ni bypass.
-- Reintentos/cola.
+- Reintentos.
 - Soporte prioritario simple.
 
 Regla: no cobrar por lo que todavia no existe. Si HLS merge no esta listo, no ponerlo como promesa principal.
@@ -71,6 +76,7 @@ Motivos:
 - Merchant of Record: maneja IVA/VAT y compliance internacional.
 - Bueno para software/SaaS chico.
 - Reduce carga fiscal/operativa inicial.
+- Mejor encaje para vender software global desde Uruguay que depender de Stripe directo.
 
 Implementacion:
 
@@ -91,7 +97,25 @@ Decision:
 
 - Si el objetivo es vender global con bajo mantenimiento: Paddle primero.
 - Si necesitamos integracion rapida y ya hay Stripe operativo: Stripe puede ganar.
+- Lemon Squeezy queda como alternativa secundaria tipo Merchant of Record si Paddle complica aprobacion o UX.
 - No usar Chrome Web Store Payments: esta deprecado/no es infraestructura actual para monetizacion nueva.
+
+## Timing de Paywall
+
+No activar paywall fuerte el dia uno.
+
+Secuencia recomendada:
+
+1. Primeras 2-4 semanas: Free util, mensaje suave "Pro coming soon".
+2. Activar Pro cuando haya 500-1000 usuarios activos, 20 reseñas reales o evidencia clara de uso repetido.
+3. No bloquear deteccion basica ni preview por paywall.
+4. Bloquear Pro solo donde haya valor real:
+   - limite diario/ventana alcanzado;
+   - batch;
+   - cola;
+   - HLS/M3U8 avanzado;
+   - subtitulos;
+   - historial/renombrado avanzado.
 
 ## Seguridad / Antirrobo
 
