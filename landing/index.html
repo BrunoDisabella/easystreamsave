@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Easy Stream Save - Clean Chrome Video Downloader with Preview</title>
-    <meta name="description" content="Easy Stream Save is a clean Chrome extension for detecting videos and stream playlists, previewing direct media files, and downloading available videos without invasive ads.">
+    <title>Easy Stream Save - Clean Chrome Video Downloader</title>
+    <meta name="description" content="Easy Stream Save is a clean Chrome video downloader that detects available video files, previews what it finds, and keeps downloads simple without invasive ads.">
     <link rel="canonical" href="https://easystreamsave.com/">
     <link rel="alternate" hreflang="en" href="https://easystreamsave.com/">
     <link rel="alternate" hreflang="es" href="https://easystreamsave.com/es/">
@@ -15,27 +15,31 @@
   <body>
     <header class="site-header">
       <a class="brand" href="/" aria-label="Easy Stream Save home">
-        <img src="/assets/logo.svg" alt="" width="36" height="36">
+        <img src="/assets/logo.svg" alt="" width="38" height="38">
         <span>Easy Stream Save</span>
       </a>
       <nav aria-label="Primary">
         <a href="/pricing/">Pricing</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/terms/">Terms</a>
         <a href="/es/" lang="es">ES</a>
-        <a href="/privacy.html">Privacy</a>
-        <a href="/terms.html">Terms</a>
       </nav>
     </header>
 
     <main>
       <section class="hero">
         <div class="hero-copy">
-          <p class="eyebrow">Chrome video downloader with clear previews</p>
-          <h1>Find videos on the page, preview what was detected, and save available files.</h1>
-          <p class="lead">Easy Stream Save detects media requests in the current tab, shows direct-file previews when Chrome allows it, and keeps the experience clean: no fake buttons, no invasive ads, no DRM bypass promises.</p>
+          <p class="eyebrow">Chrome video downloader for available media</p>
+          <h1>Save videos from web pages without fake buttons or noisy ads.</h1>
+          <p class="lead">Easy Stream Save detects video files and stream playlists in the current tab, shows a clear preview when possible, and helps you download the sources your browser can actually access.</p>
           <div class="actions">
-            <a class="button primary" href="#status">Production MVP</a>
-            <a class="button secondary" href="/pricing/">Pricing</a>
-            <a class="button secondary" href="/why-some-videos-cannot-be-downloaded.html">Download limits</a>
+            <a class="button primary" href="/pricing/">View plans</a>
+            <a class="button secondary" href="/why-some-videos-cannot-be-downloaded.html">Supported limits</a>
+          </div>
+          <div class="trust-row" aria-label="Product guarantees">
+            <span>No invasive ads</span>
+            <span>Preview before download</span>
+            <span>DRM-safe</span>
           </div>
         </div>
         <div class="product-panel" aria-label="Extension preview">
@@ -44,60 +48,70 @@
           </div>
           <div class="popup-preview">
             <div class="popup-title">
-              <img src="/assets/logo.svg" alt="" width="28" height="28">
+              <img src="/assets/logo.svg" alt="" width="30" height="30">
               <strong>Easy Stream Save</strong>
               <span>3 found</span>
             </div>
             <div class="media-row">
               <span class="thumb-video"></span>
               <div>
-                <b>tiktok-video.mp4</b>
-                <small>4.0 MB · Preview available</small>
+                <b>video-file.mp4</b>
+                <small>Preview available · 18.4 MB</small>
               </div>
-              <button>Save</button>
+              <button>Download</button>
             </div>
             <div class="media-row">
               <span class="file-icon">HLS</span>
               <div>
-                <b>playlist.m3u8</b>
+                <b>stream-playlist.m3u8</b>
                 <small>Stream playlist detected</small>
               </div>
-              <button>Save</button>
+              <button>Download</button>
             </div>
-            <div class="note">Some protected or DRM-restricted videos cannot be downloaded.</div>
+            <div class="note">Protected, encrypted, or DRM-restricted videos are not bypassed.</div>
           </div>
         </div>
       </section>
 
-      <section class="band" id="status">
+      <section class="band">
         <div>
-          <h2>Built for a simple promise</h2>
-          <p>Detect available media, show it clearly, and avoid tricks. Direct video files get a preview. Stream playlists are labeled honestly. Protected sites stay protected.</p>
+          <p class="eyebrow">What you get</p>
+          <h2>A focused downloader for real browser-detectable videos.</h2>
+          <p>Most downloader extensions feel like adware or show confusing fragments. Easy Stream Save is built around a cleaner promise: detect usable sources, label them honestly, and keep the interface minimal.</p>
         </div>
         <div class="status-grid">
           <article>
-            <h3>Preview-first popup</h3>
-            <p>Detected direct videos are shown with a playable preview area before download.</p>
+            <h3>Clear detection</h3>
+            <p>Finds available MP4, WebM, M3U8, MPD, MOV, and M4V media sources exposed to the browser.</p>
           </article>
           <article>
-            <h3>Privacy-first</h3>
-            <p>Designed around local detection and minimal permissions.</p>
+            <h3>Preview-first UI</h3>
+            <p>Shows a video preview or poster when available so you know what you are saving.</p>
           </article>
           <article>
-            <h3>Honest limits</h3>
-            <p>Protected platforms, DRM, and restricted sources are explained up front.</p>
+            <h3>Useful free plan</h3>
+            <p>Free includes up to 10 downloads every 30 minutes for available sources.</p>
           </article>
         </div>
+      </section>
+
+      <section class="conversion-band">
+        <div>
+          <h2>Built for honest personal use.</h2>
+          <p>Easy Stream Save does not promise universal downloading, DRM bypassing, or access to private media. It helps with files and playlists that the current page exposes in a way Chrome can access.</p>
+        </div>
+        <a class="button primary" href="/pricing/">Compare Free and Pro</a>
       </section>
     </main>
 
     <footer>
       <span>Easy Stream Save</span>
-      <a href="/privacy.html">Privacy Policy</a>
-      <a href="/terms.html">Terms</a>
       <a href="/pricing/">Pricing</a>
+      <a href="/privacy/">Privacy Policy</a>
+      <a href="/terms/">Terms</a>
+      <a href="/refund/">Refund Policy</a>
+      <a href="/contact/">Contact</a>
       <a href="/es/" lang="es">Espanol</a>
-      <a href="/sitemap.xml">Sitemap</a>
     </footer>
   </body>
 </html>

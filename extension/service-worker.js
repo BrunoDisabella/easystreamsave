@@ -19,13 +19,10 @@ const MEDIA_MIME_TYPES = [
 ];
 
 const tabMedia = new Map();
-const requestHeadersById = new Map();
 const FREE_DOWNLOAD_LIMIT = 10;
 const FREE_RESET_WINDOW_MS = 30 * 60 * 1000;
 const DOWNLOADABLE_PROTOCOLS = new Set(["http:", "https:"]);
 const MIN_VIDEO_BYTES = 1024 * 1024;
-const CAPTURE_HEADER_ALLOWLIST = new Set(["referer", "origin"]);
-const DOWNLOAD_HEADER_ALLOWLIST = new Set(["referer"]);
 const MAX_HLS_SEGMENTS = 180;
 
 chrome.webRequest.onBeforeRequest.addListener(
@@ -42,49 +39,21 @@ chrome.webRequest.onBeforeRequest.addListener(
   { urls: ["<all_urls>"] }
 );
 
-chrome.webRequest.onBeforeSendHeaders.addListener(
-  details => {
-    if (details.tabId < 0) {
-      return;
-    }
-
-    const headers = (details.requestHeaders || [])
-      .filter(header => CAPTURE_HEADER_ALLOWLIST.has(header.name.toLowerCase()))
-      .map(header => ({ name: header.name, value: header.value }));
-
-    if (headers.length) {
-      requestHeadersById.set(details.requestId, headers);
-    }
-  },
-  { urls: ["<all_urls>"] },
-  ["requestHeaders", "extraHeaders"]
-);
-
 chrome.webRequest.onHeadersReceived.addListener(
   details => {
     if (details.tabId < 0 || !isMediaCandidate(details)) {
-      requestHeadersById.delete(details.requestId);
       return;
     }
 
     const item = toMediaItem(details.url, details.responseHeaders || []);
-    item.requestHeaders = requestHeadersById.get(details.requestId) || [];
     if (isUsefulMediaItem(item)) {
       upsertMediaItem(details.tabId, item);
     } else {
       removeMediaItem(details.tabId, item);
     }
-    requestHeadersById.delete(details.requestId);
   },
   { urls: ["<all_urls>"] },
   ["responseHeaders"]
-);
-
-chrome.webRequest.onErrorOccurred.addListener(
-  details => {
-    requestHeadersById.delete(details.requestId);
-  },
-  { urls: ["<all_urls>"] }
 );
 
 chrome.tabs.onRemoved.addListener(tabId => {
@@ -169,11 +138,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           filename,
           saveAs: true
         };
-        const headers = safeDownloadHeaders(knownItem?.requestHeaders);
-        if (headers.length) {
-          options.headers = headers;
-        }
-
         chrome.downloads.download(options, downloadId => {
           if (chrome.runtime.lastError || !downloadId) {
             sendResponse({
@@ -616,13 +580,9 @@ async function validateDownload(rawUrl, preferredFormat, knownItem = null) {
 }
 
 async function downloadHlsStream(rawUrl, knownItem = null, preferredFormat = "original") {
-  const headers = Object.fromEntries(
-    safeDownloadHeaders(knownItem?.requestHeaders).map(header => [header.name, header.value])
-  );
   const playlistResponse = await fetch(rawUrl, {
     credentials: "include",
-    cache: "no-store",
-    headers
+    cache: "no-store"
   });
 
   if (!playlistResponse.ok) {
@@ -652,8 +612,7 @@ async function downloadHlsStream(rawUrl, knownItem = null, preferredFormat = "or
   for (const segmentUrl of segmentUrls) {
     const segmentResponse = await fetch(segmentUrl, {
       credentials: "include",
-      cache: "no-store",
-      headers
+      cache: "no-store"
     });
     if (!segmentResponse.ok) {
       throw Object.assign(new Error(`Segment failed with HTTP ${segmentResponse.status}`), { reason: "download-failed" });
@@ -717,12 +676,6 @@ async function getKnownMediaItem(tabId, rawUrl) {
   const key = normalizedMediaUrl(rawUrl);
   const media = await getTabMedia(tabId);
   return media.find(item => normalizedMediaUrl(item.url) === key) || null;
-}
-
-function safeDownloadHeaders(headers = []) {
-  return headers
-    .filter(header => header?.name && header?.value && DOWNLOAD_HEADER_ALLOWLIST.has(header.name.toLowerCase()))
-    .map(header => ({ name: header.name, value: header.value }));
 }
 
 function detectedResponseSize(response) {
